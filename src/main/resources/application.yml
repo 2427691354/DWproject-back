@@ -1,0 +1,8 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    username: root
+    password: admin
+    url: jdbc:mysql://172.19.16.73:3306/dcmdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
