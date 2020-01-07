@@ -6,9 +6,7 @@ import java.util.List;
 
 public interface LineService {
 
-    List<Line> getAll();
-
-    //根据id查询某条线路信息
-    Line findByLineIdOrName(Line line);
+    //根据条件查询线路信息，无条件时显示全部
+    List<Line> findByExample(Line line);
 
 }

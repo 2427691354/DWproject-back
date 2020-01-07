@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by cc on 2020/1/6
  */
-@Api(value="LineController",tags={"线路接口"})
+@Api(value="线路controller",tags={"线路接口"})
 @RestController
 @RequestMapping("/line")
 public class LineController {
@@ -22,22 +22,22 @@ public class LineController {
     @Autowired
     LineService lineService;
 
-    @ApiOperation(value = "获取全部线路信息")
-    @GetMapping("/getAll")
-    public List<Line> getAll(){
-        return lineService.getAll();
-    }
-
-    @ApiOperation(value = "获取某条线路信息", notes="通过线路id或线路名获取对应线路信息")
+    @ApiOperation(value = "获取线路信息", notes="根据条件查询线路信息，无条件时显示全部")
+    @GetMapping("/findByExample")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "线路id", paramType = "query ", dataType = "String"),
-            @ApiImplicitParam(name = "name", value = "线路名称", paramType = "query ", dataType = "String")
+            @ApiImplicitParam(name = "id", value = "线路id",  required = false,dataType = "String"),
+            @ApiImplicitParam(name = "name", value = "线路名称", required = false, dataType = "String")
     })
-    @GetMapping("/findByIdOrName")
-    public Line findByIdOrName(String id,String name){
+    public List<Line> findByExample(@RequestParam(value = "id",required = false) String id,@RequestParam(value = "name",required = false) String name){
         Line line = new Line();
         line.setLineid(id);
         line.setLinename(name);
-        return lineService.findByLineIdOrName(line);
+        return lineService.findByExample(line);
+    }
+
+    @ApiOperation(value = "获取线路信息-Json", notes="根据Line对象查询线路信息")
+    @PostMapping("/findByLine")
+    public List<Line> findByExampleJson(@RequestBody  Line line){
+        return lineService.findByExample(line);
     }
 }

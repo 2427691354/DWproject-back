@@ -30,11 +30,11 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 //页面标题
-                .title("Spring Boot 使用 Swagger2 构建RESTful API")
+                .title("轨道交通API 描述")
                 //版本号
                 .version("1.0")
                 //描述
-                .description("轨道交通API 描述")
+                .description("")
                 .build();
     }
 }
