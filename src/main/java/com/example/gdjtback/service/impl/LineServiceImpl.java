@@ -16,12 +16,7 @@ public class LineServiceImpl implements LineService {
     LineMapper lineMapper;
 
     @Override
-    public List<Line> getAll() {
-        return lineMapper.selectByExample(null);
-    }
-
-    @Override
-    public Line findByLineIdOrName(Line line) {
+    public List<Line> findByExample(Line line) {
         LineExample example = new LineExample();
         LineExample.Criteria criteria = example.createCriteria();
 
@@ -31,12 +26,7 @@ public class LineServiceImpl implements LineService {
         if(line.getLinename() != null ){
             criteria.andLinenameEqualTo(line.getLinename());
         }
-        List<Line> lines = lineMapper.selectByExample(example);
-        if(lines.size()>0){
-            return lines.get(0);
-        }
-        else{
-            return null;
-        }
+
+        return lineMapper.selectByExample(example);
     }
 }

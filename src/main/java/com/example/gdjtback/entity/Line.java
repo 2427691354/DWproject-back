@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-@ApiModel(value="line对象",description="线路对象Line")
+@ApiModel(value="Line",description="线路对象Line")
 @Data
 public class Line {
     @ApiModelProperty(value = "id")
