@@ -46,4 +46,12 @@ public class UserController {
     public String test(){
         return "测试";
     }
+
+
+    @ApiOperation(value = "测试冲突")
+    @PostMapping("/test")
+    public String test1(){
+        return "测试";
+    }
+
 }
