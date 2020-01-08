@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String register(User user) {
-        System.err.println(user.getUsername());
+      //  System.err.println(user.getUsername());
         int i=userMapper.insert(user);
         String message="";
         if(i>0) {

@@ -1,5 +1,7 @@
 package com.example.gdjtback.controller;
 
+import com.example.gdjtback.comm.util.Result;
+import com.example.gdjtback.comm.util.ResultUtil;
 import com.example.gdjtback.entity.User;
 import com.example.gdjtback.service.UserService;
 import io.swagger.annotations.Api;
@@ -16,10 +18,11 @@ public class UserController {
 
     @ApiOperation(value = "用户注册")
     @PostMapping("/register")
-    public String register(@RequestBody User user){
+    public Result register(@RequestBody User user){
         if(user.getUsername()=="" || user.getUsername()==null){
-            return "请输入用户信息";
+            return ResultUtil.error("请输入用户信息");
         }
-        return userService.register(user);
+
+        return ResultUtil.success(userService.register(user));
     }
 }
