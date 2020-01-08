@@ -41,4 +41,9 @@ public class UserController {
         return ResultUtil.success(userList);
 
     }
+    @ApiOperation(value = "测试冲突")
+    @PostMapping("/test")
+    public String test(){
+        return "测试";
+    }
 }
