@@ -1,10 +1,14 @@
 package com.example.gdjtback.service.impl;
 
+import com.example.gdjtback.entity.LineExample;
 import com.example.gdjtback.entity.User;
+import com.example.gdjtback.entity.UserExample;
 import com.example.gdjtback.mapper.UserMapper;
 import com.example.gdjtback.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,4 +27,23 @@ public class UserServiceImpl implements UserService {
         }
         return message;
     }
+
+    public List<User> dologin(User user) {
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+
+        criteria.andUsernameEqualTo(user.getUsername());
+        criteria.andPwdEqualTo(user.getPwd());
+
+        List<User> userList = userMapper.selectByExample(example);
+        if(userList.size()>0){
+            return userList;
+        }
+        return null;
+
+
+
+    }
+
+
 }

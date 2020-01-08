@@ -23,7 +23,7 @@ public class LineController {
 
     @Autowired
     LineService lineService;
-
+//给前端传递信息
     @ApiOperation(value = "获取线路信息", notes="根据条件查询线路信息，无条件时显示全部")
     @GetMapping("/findByExample")
     @ApiImplicitParams({
@@ -39,6 +39,7 @@ public class LineController {
     }
 
     @ApiOperation(value = "获取线路信息-Json", notes="根据Line对象查询线路信息")
+    //json格式只能使用PostMapping
     @PostMapping("/findByLine")
     public Result findByExampleJson(@RequestBody  Line line){
         if(line.getLineid() == null){
