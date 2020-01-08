@@ -22,9 +22,11 @@ public class LineServiceImpl implements LineService {
 
         if(line.getLineid() != null){
             criteria.andLineidEqualTo(line.getLineid());
+            System.err.println(line.getLineid());
         }
         if(line.getLinename() != null ){
             criteria.andLinenameEqualTo(line.getLinename());
+            System.err.println(line.getLinename());
         }
 
         return lineMapper.selectByExample(example);

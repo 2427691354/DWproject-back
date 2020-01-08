@@ -83,34 +83,5 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.example.gdjtback.entity.LineExample">
-    delete from line
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.example.gdjtback.entity.Line">
-    insert into line (id, lineID, lineName, 
-      remarks, deleteFlag)
-    values (#{id,jdbcType=INTEGER}, #{lineid,jdbcType=VARCHAR}, #{linename,jdbcType=VARCHAR}, 
-      #{remarks,jdbcType=VARCHAR}, #{deleteflag,jdbcType=INTEGER})
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.gdjtback.entity.Line">
-    update line
-    <set>
-      <if test="lineid != null">
-        lineID = #{lineid,jdbcType=VARCHAR},
-      </if>
-      <if test="linename != null">
-        lineName = #{linename,jdbcType=VARCHAR},
-      </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="deleteflag != null">
-        deleteFlag = #{deleteflag,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>
