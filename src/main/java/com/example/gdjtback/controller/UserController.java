@@ -41,6 +41,7 @@ public class UserController {
         return ResultUtil.success(userList);
 
     }
+
     @ApiOperation(value = "冲突测试")
     @PostMapping("/test")
     public String test()
@@ -54,4 +55,18 @@ public class UserController {
         return "冲突测试3";
     }
 
+    @ApiOperation(value = "用户登录自定义接口")
+    @PostMapping("/testLogin")
+    public Result testLogin(@RequestBody User user){
+        if(user.getUsername()==null || user.getPwd()==null){
+            return ResultUtil.warn("请输入用户名或密码");
+        }
+
+        User u=userService.testLogin(user);
+        if(u == null){
+            return ResultUtil.warn("用户不存在");
+        }
+        return ResultUtil.success(u);
+
+    }
 }

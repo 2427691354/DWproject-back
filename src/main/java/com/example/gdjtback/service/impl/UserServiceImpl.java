@@ -12,18 +12,29 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     UserMapper userMapper;
 
     @Override
     public String register(User user) {
-      //  System.err.println(user.getUsername());
-        int i=userMapper.insert(user);
-        String message="";
-        if(i>0) {
-            message="添加成功";
-        }else {
-            message="添加失败";
+        //  System.err.println(user.getUsername());
+        String message = "";
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+
+        criteria.andUsernameEqualTo(user.getUsername());
+        List<User> userList = userMapper.selectByExample(example);
+        if (userList.size() > 0) {
+            message = "此用户名已存在";
+        } else {
+            int i = userMapper.insert(user);
+
+            if (i > 0) {
+                message = "添加成功";
+            } else {
+                message = "添加失败";
+            }
         }
         return message;
     }
@@ -36,13 +47,21 @@ public class UserServiceImpl implements UserService {
         criteria.andPwdEqualTo(user.getPwd());
 
         List<User> userList = userMapper.selectByExample(example);
-        if(userList.size()>0){
+        if (userList.size() > 0) {
             return userList;
         }
         return null;
 
 
+    }
 
+    @Override
+    public User testLogin(User user) {
+        User u = userMapper.testLogin(user.getUsername(),user.getPwd());
+        if (u != null) {
+            return u;
+        }
+        return null;
     }
 
 

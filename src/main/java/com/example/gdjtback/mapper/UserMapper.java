@@ -29,4 +29,6 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
+    User testLogin(@Param("username") String username,@Param("pwd") String pwd);
+
 }

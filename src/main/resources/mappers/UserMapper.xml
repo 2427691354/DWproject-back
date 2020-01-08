@@ -209,5 +209,9 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-
+  <select id="testLogin" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select *
+    from user
+    where userName = #{username} and pwd = #{pwd}
+  </select>
 </mapper>
