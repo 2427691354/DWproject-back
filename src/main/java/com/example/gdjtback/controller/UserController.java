@@ -20,11 +20,12 @@ public class UserController {
 
     @ApiOperation(value = "用户注册")
     @PostMapping("/register")
-    public String register(@RequestBody User user){
+    public Result register(@RequestBody User user){
         if(user.getUsername()=="" || user.getUsername()==null){
-            return "请输入用户信息";
+            return ResultUtil.error("请输入用户信息");
         }
-        return userService.register(user);
+
+        return ResultUtil.success(userService.register(user));
     }
     @ApiOperation(value = "用户登录")
     @PostMapping("/login")
