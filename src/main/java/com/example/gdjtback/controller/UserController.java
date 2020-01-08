@@ -47,4 +47,11 @@ public class UserController {
     {
         return "冲突测试";
     }
+    @ApiOperation(value = "冲突测试3")
+    @PostMapping("/test3")
+    public String test3()
+    {
+        return "冲突测试3";
+    }
+
 }
