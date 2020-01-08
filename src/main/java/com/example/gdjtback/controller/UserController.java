@@ -48,12 +48,7 @@ public class UserController {
     {
         return "冲突测试";
     }
-    @ApiOperation(value = "冲突测试3")
-    @PostMapping("/test3")
-    public String test3()
-    {
-        return "冲突测试3";
-    }
+
 
     @ApiOperation(value = "用户登录自定义接口")
     @PostMapping("/testLogin")
