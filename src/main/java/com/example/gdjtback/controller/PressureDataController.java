@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Api(value = "PressureDataController",tags = {"传感器气瓶气压数据"})
-@RequestMapping("/PressureData")
+
 public class PressureDataController {
 
     @Autowired
