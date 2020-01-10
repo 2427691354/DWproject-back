@@ -37,7 +37,7 @@ public class PressureDataController {
     }
 
     @ApiOperation(value = "获取站内气瓶最新信息")
-    @ApiImplicitParam(name = "deviceID",value = "线路id",required = false,dataType = "String")
+    @ApiImplicitParam(name = "deviceID",value = "站点id",required = false,dataType = "String")
     @GetMapping("/getDeviceInfoByDeviceID")
     public Result getDeviceInfoByDeviceID(@RequestParam(value = "deviceID",required = false) String deviceID){
         List<PressureData> pressureDataInfo=pressureDataService.getDeviceInfoByDeviceID(deviceID);
