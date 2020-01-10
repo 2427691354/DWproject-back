@@ -26,8 +26,9 @@ public class StationController {
     @ApiImplicitParam(name = "lineID",value = "线路id",required = false,dataType = "String")
     @GetMapping("/selectStationByLineID")
    public Result selectStationByLineID(@RequestParam(value = "lineID",required = false)String lineID){
+
         List<Station> stations=stationService.findByLineID(lineID);
-       return ResultUtil.success(stations);
+        return ResultUtil.success(stations);
 
 
    }

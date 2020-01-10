@@ -9,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,9 +36,10 @@ public class PressureDataController {
     @ApiOperation(value = "获取站内气瓶最新信息")
     @ApiImplicitParam(name = "deviceID",value = "站点id",required = false,dataType = "String")
     @GetMapping("/getDeviceInfoByDeviceID")
-    public Result getDeviceInfoByDeviceID(@RequestParam(value = "deviceID",required = false) String deviceID){
-        List<PressureData> pressureDataInfo=pressureDataService.getDeviceInfoByDeviceID(deviceID);
-        return  ResultUtil.success(pressureDataInfo);
+    public Result getDeviceInfoByDeviceID(@RequestParam(value = "deviceID",required = false)  String deviceID){
+            List<PressureData> pressureDataInfo = pressureDataService.getDeviceInfoByDeviceID(deviceID);
+            return ResultUtil.success(pressureDataInfo);
+
     }
 
 
