@@ -1,6 +1,8 @@
 package com.example.gdjtback.controller;
 
 
+import com.example.gdjtback.comm.util.Result;
+import com.example.gdjtback.comm.util.ResultUtil;
 import com.example.gdjtback.entity.PressureData;
 import com.example.gdjtback.service.PressureDataService;
 import io.swagger.annotations.Api;
@@ -23,9 +25,8 @@ public class PressureDataController {
     @ApiOperation(value = "获取气压数据")
     @ApiImplicitParam(name = "sensorID",value = "气瓶id",required = true,dataType = "String")
     @GetMapping("/findWeeklyPressureDataBySensorId")
-    public List<PressureData> findWeeklyPressureDataBySensorId(@RequestParam(value = "sensorID",required = true) String sensorID){
-
-        return pressureDataService.findWeeklyPressureDataBySensorId(sensorID);
+    public Result findWeeklyPressureDataBySensorId(@RequestParam(value = "sensorID",required = true) String sensorID){
+        return ResultUtil.success(pressureDataService.findWeeklyPressureDataBySensorId(sensorID));
     }
 
 
