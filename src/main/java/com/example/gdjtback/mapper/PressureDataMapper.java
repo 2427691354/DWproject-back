@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface PressureDataMapper {
     public List<PressureData> findWeeklyPressureDataByDeviceID(String deviceID);
+    List<PressureData> getDeviceInfoByDeviceID(String deviceID);
 }

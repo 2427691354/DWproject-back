@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PressureDataService {
     public List<PressureData> findWeeklyPressureDataByDeviceID(String deviceID);
+    List<PressureData> getDeviceInfoByDeviceID(String deviceID);
 }

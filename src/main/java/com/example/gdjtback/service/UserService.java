@@ -9,6 +9,7 @@ public interface UserService {
     String register(User user);
 
    // public User dologin(User user);
+    //用户登录接口
     List<User> dologin(User user);
 
     User testLogin(User user);
