@@ -28,6 +28,10 @@ public class PressureDataController {
     public Result findWeeklyPressureDataBySensorId(@RequestParam(value = "sensorID",required = true) String sensorID){
         return ResultUtil.success(pressureDataService.findWeeklyPressureDataBySensorId(sensorID));
     }
+    @GetMapping("/test")
+    public String test(){
+        return "测试";
+    }
 
 
 
