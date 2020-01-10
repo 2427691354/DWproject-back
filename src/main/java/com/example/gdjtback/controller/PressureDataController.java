@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @Api(value = "PressureDataController",tags = {"传感器气瓶气压数据"})
 @RequestMapping("/PressureData")
+@RestController
 public class PressureDataController {
 
     @Autowired
@@ -25,8 +27,9 @@ public class PressureDataController {
     @ApiOperation(value = "获取气压数据")
     @ApiImplicitParam(name = "sensorID",value = "气瓶id",required = true,dataType = "String")
     @GetMapping("/findWeeklyPressureDataBySensorId")
-    public Result findWeeklyPressureDataBySensorId(@RequestParam(value = "sensorID",required = true) String sensorID){
-        return ResultUtil.success(pressureDataService.findWeeklyPressureDataBySensorId(sensorID));
+    public Result findWeeklyPressureDataByDeviceID(@RequestParam(value = "sensorID",required = true) String deviceID){
+        List<PressureData> pressureData = pressureDataService.findWeeklyPressureDataByDeviceID(deviceID);
+            return ResultUtil.success(pressureData);
     }
     @GetMapping("/test")
     public String test(){
