@@ -51,8 +51,6 @@ public class UserServiceImpl implements UserService {
             return userList;
         }
         return null;
-
-
     }
 
     @Override
