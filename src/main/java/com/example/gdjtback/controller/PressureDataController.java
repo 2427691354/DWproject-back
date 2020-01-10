@@ -27,6 +27,11 @@ public class PressureDataController {
 
         return pressureDataService.findWeeklyPressureDataBySensorId(sensorID);
     }
+    @GetMapping("/test")
+    public String test(){
+        return "test";
+    }
+
 
 
 }
