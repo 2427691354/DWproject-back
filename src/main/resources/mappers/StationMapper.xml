@@ -259,11 +259,20 @@
     SELECT * from line l,station s
      where l.lineID=s.lineID and l.lineID=#{lineID}
   </select>
-  <select id="getStationInfoByStationID" parameterType="String" resultType="PressureData">
+  <select id="getSensorNewInfoByStationID" parameterType="String" resultType="java.util.Map">
 
-   SELECT * from pressureData p,station s
-   WHERE p.id=s.id AND p.sTime=(SELECT max(sTime) FROM pressureData) and stationID=#{stationID}
-
+select  p.id,r.roomID,roomName,d.deviceID,deviceName,sensorID,ptype,parValue,sTime,wtype
+from room r
+join device d
+on r.roomID = d.roomID
+left join pressureData p
+on p.deviceID = d.deviceID
+where stationID =#{stationID} and p.id in
+(
+	select max(id)
+	from pressureData
+	GROUP BY deviceID,sensorID
+)
 
 </select>
 </mapper>

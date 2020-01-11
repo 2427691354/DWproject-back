@@ -2,7 +2,6 @@ package com.example.gdjtback.controller;
 
 import com.example.gdjtback.comm.util.Result;
 import com.example.gdjtback.comm.util.ResultUtil;
-import com.example.gdjtback.entity.PressureData;
 import com.example.gdjtback.entity.Station;
 import com.example.gdjtback.service.StationService;
 import io.swagger.annotations.Api;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Api(value="StationController",tags={"站点"})
@@ -31,15 +31,14 @@ public class StationController {
         List<Station> stations=stationService.findByLineID(lineID);
         return ResultUtil.success(stations);
 
-
    }
 
     @ApiOperation(value = "获取站内气瓶最新信息")
-    @ApiImplicitParam(name = "stationID",value = "站点id",required = false,dataType = "String")
-    @GetMapping("/getStationInfoByStationID")
-    public Result getDeviceInfoByDeviceID(@RequestParam(value = "stationID",required = false)  String stationID){
-        List<PressureData> pressureDataInfo = stationService.getStationInfoByStationID(stationID);
-        return ResultUtil.success(pressureDataInfo);
+    @ApiImplicitParam(name ="stationID",value = "站点id",required = false,dataType = "String")
+    @GetMapping("/getSensorNewInfoByStationID")
+    public Result getSensorNewInfoByStationID(@RequestParam(value = "stationID",required = false)  String stationID){
+        List<HashMap> sensorNewInfo = stationService.getSensorNewInfoByStationID(stationID);
+        return ResultUtil.success(sensorNewInfo);
 
     }
 

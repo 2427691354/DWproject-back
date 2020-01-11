@@ -3,6 +3,8 @@ package com.example.gdjtback.mapper;
 import com.example.gdjtback.entity.PressureData;
 import com.example.gdjtback.entity.Station;
 import com.example.gdjtback.entity.StationExample;
+
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,7 +32,7 @@ public interface StationMapper {
     int updateByPrimaryKey(Station record);
 
     List<Station> selectStationByLineId(String lineID);
-    List<PressureData> getStationInfoByStationID(String stationID);
+    List<HashMap> getSensorNewInfoByStationID(String stationID);
 
 
 
