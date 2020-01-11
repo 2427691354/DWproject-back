@@ -7,6 +7,7 @@ import com.example.gdjtback.entity.PressureData;
 import com.example.gdjtback.service.PressureDataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +23,15 @@ public class PressureDataController {
     PressureDataService pressureDataService;
 
     @ApiOperation(value = "获取气压数据")
-    @ApiImplicitParam(name = "sensorID",value = "气瓶id",required = true,dataType = "String")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name ="deviceID",value = "设备id",required = true,dataType = "String"),
+            @ApiImplicitParam(name ="sensorID",value = "气瓶id",required = true,dataType = "String")
+    })
+
     @GetMapping("/findWeeklyPressureDataBySensorId")
-    public Result findWeeklyPressureDataByDeviceID(@RequestParam(value = "sensorID",required = true) String deviceID){
-        List<PressureData> pressureData = pressureDataService.findWeeklyPressureDataByDeviceID(deviceID);
+    public Result findWeeklyPressureDataByDeviceID(@RequestParam(value = "deviceID",required = true) String deviceID,
+                                                   @RequestParam(value = "sensorID",required = true) String sensorID){
+        List<PressureData> pressureData = pressureDataService.findWeeklyPressureDataByDeviceID(deviceID,sensorID);
             return ResultUtil.success(pressureData);
     }
     @GetMapping("/test")

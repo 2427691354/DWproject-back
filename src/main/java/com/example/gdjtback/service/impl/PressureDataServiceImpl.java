@@ -14,8 +14,8 @@ public class PressureDataServiceImpl implements PressureDataService {
     @Autowired
     PressureDataMapper pressureDataMapper;
     @Override
-    public List<PressureData> findWeeklyPressureDataByDeviceID(String deviceID) {
-        return pressureDataMapper.findWeeklyPressureDataByDeviceID(deviceID);
+    public List<PressureData> findWeeklyPressureDataByDeviceID(String deviceID,String sensorID) {
+        return pressureDataMapper.findWeeklyPressureDataByDeviceID(deviceID,sensorID);
     }
 
     @Override
