@@ -1,6 +1,6 @@
 package com.example.gdjtback.mapper;
 
-import com.example.gdjtback.entity.PressureData;
+
 import com.example.gdjtback.entity.Station;
 import com.example.gdjtback.entity.StationExample;
 
