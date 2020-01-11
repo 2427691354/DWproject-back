@@ -9,13 +9,7 @@
 
 
 </select>
-    <select id="getDeviceInfoByDeviceID" parameterType="String" resultType="PressureData">
 
-   SELECT * FROM pressureData
-   where sTime=(SELECT max(sTime) FROM pressureData) and deviceID=#{deviceID}
-
-
-</select>
 
 
 </mapper>

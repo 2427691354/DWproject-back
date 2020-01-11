@@ -2,6 +2,7 @@ package com.example.gdjtback.controller;
 
 import com.example.gdjtback.comm.util.Result;
 import com.example.gdjtback.comm.util.ResultUtil;
+import com.example.gdjtback.entity.PressureData;
 import com.example.gdjtback.entity.Station;
 import com.example.gdjtback.service.StationService;
 import io.swagger.annotations.Api;
@@ -32,4 +33,14 @@ public class StationController {
 
 
    }
+
+    @ApiOperation(value = "获取站内气瓶最新信息")
+    @ApiImplicitParam(name = "stationID",value = "站点id",required = false,dataType = "String")
+    @GetMapping("/getStationInfoByStationID")
+    public Result getDeviceInfoByDeviceID(@RequestParam(value = "stationID",required = false)  String stationID){
+        List<PressureData> pressureDataInfo = stationService.getStationInfoByStationID(stationID);
+        return ResultUtil.success(pressureDataInfo);
+
+    }
+
 }

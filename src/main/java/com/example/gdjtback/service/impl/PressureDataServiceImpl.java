@@ -18,8 +18,5 @@ public class PressureDataServiceImpl implements PressureDataService {
         return pressureDataMapper.findWeeklyPressureDataByDeviceID(deviceID,sensorID);
     }
 
-    @Override
-    public List<PressureData> getDeviceInfoByDeviceID(String deviceID) {
-        return pressureDataMapper.getDeviceInfoByDeviceID(deviceID);
-    }
+
 }

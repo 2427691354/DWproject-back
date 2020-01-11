@@ -259,4 +259,11 @@
     SELECT * from line l,station s
      where l.lineID=s.lineID and l.lineID=#{lineID}
   </select>
+  <select id="getStationInfoByStationID" parameterType="String" resultType="PressureData">
+
+   SELECT * from pressureData p,station s
+   WHERE p.id=s.id AND p.sTime=(SELECT max(sTime) FROM pressureData) and stationID=#{stationID}
+
+
+</select>
 </mapper>
