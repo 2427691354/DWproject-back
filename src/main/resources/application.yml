@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: admin
+    url: jdbc:mysql://47.101.141.93:3306/nCov?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.lixing.siiteq
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug
