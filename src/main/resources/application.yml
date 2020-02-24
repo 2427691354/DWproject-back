@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8088
 
 spring:
   datasource:
@@ -10,7 +10,7 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
-  type-aliases-package: com.lixing.siiteq
+  type-aliases-package: com.lixing.siitep
 
 #showSql
 logging:
