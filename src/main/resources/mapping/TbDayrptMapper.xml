@@ -421,4 +421,9 @@
       up_time = #{upTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="sum" resultType="java.util.Map" parameterType="com.lixing.siitep.entity.TbDayrptExample">
+    select count(id) sum,count(IF ( is_isolated !=0, TRUE, NULL )) sumisolated,count(IF ( temperature >= 37.3, TRUE, NULL ))sumhever
+    from ${tableName}
+  </select>
 </mapper>

@@ -3,6 +3,8 @@ package com.lixing.siitep.mapper;
 import com.lixing.siitep.entity.TbDayrpt;
 import com.lixing.siitep.entity.TbDayrptExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TbDayrptMapper {
@@ -94,4 +96,6 @@ public interface TbDayrptMapper {
      */
     int updateByPrimaryKey(TbDayrpt record);
 
+    // 宏观统计 总人数、隔离人数、发烧人数
+    Map<String,Object> sum(TbDayrptExample example);
 }
