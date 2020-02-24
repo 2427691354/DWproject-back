@@ -1,5 +1,7 @@
 package com.lixing.siitep.entity;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 

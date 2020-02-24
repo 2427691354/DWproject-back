@@ -192,4 +192,11 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
+  <select id="selectTableName" resultType="string">
+    select table_name
+    from tbl_record
+    ORDER BY create_time desc
+    limit 1
+  </select>
 </mapper>
