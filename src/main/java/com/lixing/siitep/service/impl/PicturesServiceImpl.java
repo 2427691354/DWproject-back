@@ -21,8 +21,8 @@ public class PicturesServiceImpl implements PicturesService {
     public List<TbPictures> findByExample(TbPictures pictures) {
         TbPicturesExample example = new TbPicturesExample();
         TbPicturesExample.Criteria criteria = example.createCriteria();
-       if (pictures.getType() == 1)
-           criteria.andImgEqualTo(pictures.getImg());
+       if (pictures.getType() != 1)
+           criteria.andTypeEqualTo(pictures.getType());
 
        return tbPicturesMapper.selectByExample(example);
 
