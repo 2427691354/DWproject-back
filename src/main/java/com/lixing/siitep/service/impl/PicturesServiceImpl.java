@@ -17,14 +17,9 @@ public class PicturesServiceImpl implements PicturesService {
     @Autowired
     private TbPicturesMapper tbPicturesMapper;
 
+
     @Override
-    public List<TbPictures> findByExample(TbPictures pictures) {
-        TbPicturesExample example = new TbPicturesExample();
-        TbPicturesExample.Criteria criteria = example.createCriteria();
-       if (pictures.getType() != 1)
-           criteria.andTypeEqualTo(pictures.getType());
-
-       return tbPicturesMapper.selectByExample(example);
-
+    public List<TbPictures> selectByType(int type) {
+        return tbPicturesMapper.selectByType(type);
     }
 }

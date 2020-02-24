@@ -94,4 +94,6 @@ public interface TbPicturesMapper {
      */
     int updateByPrimaryKey(TbPictures record);
 
+    List<TbPictures> selectByType(int type);
+
 }

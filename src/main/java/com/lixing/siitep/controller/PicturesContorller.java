@@ -25,13 +25,11 @@ public class PicturesContorller {
     @Autowired
     private PicturesService picturesService;
 
-    @GetMapping("/findByExample")
+    @GetMapping("/selectByType")
     @ApiOperation("查找轮播图片")
-    private List<TbPictures> getPictures(@RequestParam(value = "id",required = false) int id){
-        TbPictures pictures=new TbPictures();
-        pictures.setId(id);
-        List<TbPictures> list = picturesService.findByExample(pictures);
-        return list;
+    private List<TbPictures> getImg(@RequestParam(value = "type",required = false) int type){
+        List<TbPictures> imgs = picturesService.selectByType(type);
+        return imgs;
     }
 
 }

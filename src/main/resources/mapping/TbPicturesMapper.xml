@@ -268,4 +268,10 @@
       title = #{title,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByType" parameterType="java.util.List" resultMap="BaseResultMap">
+    select img
+    from tb_pictures
+    where type = #{type}
+  </select>
 </mapper>

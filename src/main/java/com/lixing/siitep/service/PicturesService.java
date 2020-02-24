@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface PicturesService {
     //查询图片轮播
-    List<TbPictures> findByExample(TbPictures pictures);
+    List<TbPictures> selectByType(int type);
 }
