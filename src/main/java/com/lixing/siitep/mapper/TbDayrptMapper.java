@@ -98,4 +98,12 @@ public interface TbDayrptMapper {
 
     // 宏观统计 总人数、隔离人数、发烧人数
     Map<String,Object> sum(TbDayrptExample example);
+   //统计各省物理分布人数
+    List<TbDayrpt> StuInProvince(TbDayrptExample example);
+    //统计各省发烧人数分布
+    List<TbDayrpt> StuHotInProvince(TbDayrptExample example);
+    //统计各省隔离人数分布
+    List<TbDayrpt> StuIsolatedInProvince(TbDayrptExample example);
+
+
 }

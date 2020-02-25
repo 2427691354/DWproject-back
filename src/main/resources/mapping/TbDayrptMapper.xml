@@ -421,9 +421,24 @@
       up_time = #{upTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
   <select id="sum" resultType="java.util.Map" parameterType="com.lixing.siitep.entity.TbDayrptExample">
     select count(id) sum,count(IF ( is_isolated !=0, TRUE, NULL )) sumisolated,count(IF ( temperature >= 37.3, TRUE, NULL ))sumhever
     from ${tableName}
+</select>
+  <select id="StuInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
+    select location_province,count(id) count
+    from ${tableName}
+    GROUP BY location_province
   </select>
+  <select id="StuHotInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
+    select location_province,count(id) count
+    from ${tableName} WHERE temperature>=37.3
+    GROUP BY location_province
+  </select>
+  <select id="StuIsolatedInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
+    select location_province,count(id) count
+    from ${tableName} WHERE is_isolated !=0
+    GROUP BY location_province
+  </select>
+
 </mapper>
