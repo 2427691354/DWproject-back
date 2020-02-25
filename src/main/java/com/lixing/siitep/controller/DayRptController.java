@@ -51,7 +51,4 @@ public class DayRptController {
         return StuIsolatedCount;
     }
 
-
-
-
 }
