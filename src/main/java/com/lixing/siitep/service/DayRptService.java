@@ -2,6 +2,8 @@ package com.lixing.siitep.service;
 
 import com.lixing.siitep.entity.TbDayrpt;
 
+
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,5 +17,14 @@ public interface DayRptService {
     Map<String,Object> sum();
 
     List<TbDayrpt> selectByExample(TbDayrpt tbDayrpt);
+    //学生省份物理分布
+    List<TbDayrpt> StuInProvince();
+    //学生发烧人数分布省份
+    List<TbDayrpt> StuHotInProvince();
+    //学生隔离人数分布省份
+    List<TbDayrpt> StuIsolatedInProvince();
+
+
+
 
 }

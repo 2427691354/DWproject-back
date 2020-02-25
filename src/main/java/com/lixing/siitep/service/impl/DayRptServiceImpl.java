@@ -39,4 +39,30 @@ public class DayRptServiceImpl implements DayRptService
         example.setTableName(tblRecordMapper.selectTableName());
         return tbDayrptMapper.selectByExample(example);
     }
+
+    @Override
+    public List<TbDayrpt> StuInProvince() {
+        TbDayrptExample example = new TbDayrptExample();
+        TbDayrptExample.Criteria criteria = example.createCriteria();
+        example.setTableName(tblRecordMapper.selectTableName());
+        return tbDayrptMapper.StuInProvince(example);
+    }
+
+    @Override
+    public List<TbDayrpt> StuHotInProvince() {
+        TbDayrptExample example = new TbDayrptExample();
+        TbDayrptExample.Criteria criteria = example.createCriteria();
+        example.setTableName(tblRecordMapper.selectTableName());
+        return tbDayrptMapper.StuHotInProvince(example);
+    }
+
+    @Override
+    public List<TbDayrpt> StuIsolatedInProvince() {
+        TbDayrptExample example = new TbDayrptExample();
+        TbDayrptExample.Criteria criteria = example.createCriteria();
+        example.setTableName(tblRecordMapper.selectTableName());
+        return tbDayrptMapper.StuIsolatedInProvince(example);
+    }
+
+
 }
