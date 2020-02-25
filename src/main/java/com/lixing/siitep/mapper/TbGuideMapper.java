@@ -1,5 +1,6 @@
 package com.lixing.siitep.mapper;
 
+import com.lixing.siitep.entity.TbDiagnosis;
 import com.lixing.siitep.entity.TbGuide;
 import com.lixing.siitep.entity.TbGuideExample;
 import java.util.List;
@@ -93,4 +94,6 @@ public interface TbGuideMapper {
      * @mbg.generated Mon Feb 24 11:02:36 CST 2020
      */
     int updateByPrimaryKey(TbGuide record);
+
+    List<TbGuide> selectFromTitle();
 }

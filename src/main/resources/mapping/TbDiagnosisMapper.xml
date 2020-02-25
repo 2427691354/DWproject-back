@@ -253,4 +253,9 @@
       title = #{title,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectFromTitle" parameterType="com.lixing.siitep.entity.TbDiagnosisExample" resultMap="BaseResultMap">
+    select title
+    from tb_diagnosis
+  </select>
+
 </mapper>

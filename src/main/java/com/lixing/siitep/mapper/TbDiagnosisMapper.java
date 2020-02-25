@@ -93,4 +93,6 @@ public interface TbDiagnosisMapper {
      * @mbg.generated Mon Feb 24 09:59:27 CST 2020
      */
     int updateByPrimaryKey(TbDiagnosis record);
+
+    List<TbDiagnosis> selectFromTitle();
 }

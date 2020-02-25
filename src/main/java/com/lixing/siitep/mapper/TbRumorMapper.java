@@ -93,4 +93,5 @@ public interface TbRumorMapper {
      * @mbg.generated Mon Feb 24 09:59:27 CST 2020
      */
     int updateByPrimaryKey(TbRumor record);
+    List<TbRumor> selectRumortitle();
 }

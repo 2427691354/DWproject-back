@@ -253,4 +253,8 @@
       title = #{title,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectFromTitle" parameterType="com.lixing.siitep.entity.TbGuideExample" resultMap="BaseResultMap">
+    select title
+    from tb_guide
+  </select>
 </mapper>
