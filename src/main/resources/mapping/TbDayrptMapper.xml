@@ -446,6 +446,7 @@
 	c_name,
 	s_id,
     temperature,
+    quarantine,
     IF
 	( is_isolated = 1, 'ISOLATION', '发烧' ) STATUS
     from ${tableName}

@@ -57,13 +57,6 @@ public class DayRptController {
         List<TbDayrpt> FocusStu=dayRptService.FocusStu();
         return FocusStu;
     }
-    @GetMapping("getTemperatureGradeRatio")
-    @ApiOperation("重点关注学生")
-    private List<TbDayrpt> getTemperatureGradeRatio(){
-        List<TbDayrpt> TemperatureGradeRatio=dayRptService.getTemperatureGradeRatio();
-        return TemperatureGradeRatio;
-    }
-
 
     @GetMapping("getTemperatureGradeRatio")
     @ApiOperation("体温等级比例")
