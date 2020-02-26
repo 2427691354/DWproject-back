@@ -64,5 +64,13 @@ public class DayRptServiceImpl implements DayRptService
         return tbDayrptMapper.StuIsolatedInProvince(example);
     }
 
+    @Override
+    public List<TbDayrpt> getTemperatureGradeRatio() {
+        TbDayrptExample example = new TbDayrptExample();
+        TbDayrptExample.Criteria criteria = example.createCriteria();
+        example.setTableName(tblRecordMapper.selectTableName());
+        return tbDayrptMapper.getTemperatureGradeRatio(example);
+    }
+
 
 }

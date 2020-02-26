@@ -23,7 +23,8 @@ public interface DayRptService {
     List<TbDayrpt> StuHotInProvince();
     //学生隔离人数分布省份
     List<TbDayrpt> StuIsolatedInProvince();
-
+    //体温等级比例
+    List<TbDayrpt> getTemperatureGradeRatio();
 
 
 

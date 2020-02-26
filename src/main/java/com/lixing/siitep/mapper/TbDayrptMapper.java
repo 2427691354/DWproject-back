@@ -105,5 +105,6 @@ public interface TbDayrptMapper {
     //统计各省隔离人数分布
     List<TbDayrpt> StuIsolatedInProvince(TbDayrptExample example);
 
+    List<TbDayrpt> getTemperatureGradeRatio(TbDayrptExample example);
 
 }
