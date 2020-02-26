@@ -107,5 +107,6 @@ public interface TbDayrptMapper {
     //重点关注学生
     List<TbDayrpt> FocusStu(TbDayrptExample example);
 
+    List<TbDayrpt> getTemperatureGradeRatio(TbDayrptExample example);
 
 }
