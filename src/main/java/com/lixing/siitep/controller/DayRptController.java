@@ -58,4 +58,10 @@ public class DayRptController {
         return FocusStu;
     }
 
+    @GetMapping("getTemperatureGradeRatio")
+    @ApiOperation("体温等级比例")
+private List<TbDayrpt> getTemperatureGradeRatio(){
+        List<TbDayrpt> TemperatureGradeRatio=dayRptService.getTemperatureGradeRatio();
+        return TemperatureGradeRatio;
+    }
 }

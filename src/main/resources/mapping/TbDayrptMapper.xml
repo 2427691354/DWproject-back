@@ -452,5 +452,13 @@
     WHERE
 	is_isolated = 1 OR temperature >= 37.3
   </select>
+  <select id="getTemperatureGradeRatio" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
+    SELECT
+    count( IF ( temperature >= 39.1, TRUE, NULL ) ) highfever,
+    count( IF ( temperature >= 38.1, TRUE, NULL ) ) moderatefever,
+    count( IF ( temperature >= 37.3 , TRUE, NULL ) ) lowfever,
+    count( IF ( 37.3 > temperature, TRUE, NULL ) ) normal
+    from ${tableName}
+  </select>
 
 </mapper>

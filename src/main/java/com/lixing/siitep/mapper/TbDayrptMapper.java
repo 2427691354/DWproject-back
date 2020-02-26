@@ -106,7 +106,7 @@ public interface TbDayrptMapper {
     List<TbDayrpt> StuIsolatedInProvince(TbDayrptExample example);
     //重点关注学生
     List<TbDayrpt> FocusStu(TbDayrptExample example);
-
+//体温等级比例
     List<TbDayrpt> getTemperatureGradeRatio(TbDayrptExample example);
 
 }
