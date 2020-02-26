@@ -25,6 +25,8 @@ public interface DayRptService {
     List<TbDayrpt> StuIsolatedInProvince();
     //重点关注学生
     List<TbDayrpt> FocusStu();
+    //
+    List<TbDayrpt> getTemperatureGradeRatio();
 
 
 

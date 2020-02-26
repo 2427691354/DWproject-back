@@ -57,4 +57,5 @@ public class DayRptController {
         List<TbDayrpt> FocusStu=dayRptService.FocusStu();
         return FocusStu;
     }
+
 }
