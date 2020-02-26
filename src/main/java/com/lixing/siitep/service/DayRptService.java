@@ -23,6 +23,8 @@ public interface DayRptService {
     List<TbDayrpt> StuHotInProvince();
     //学生隔离人数分布省份
     List<TbDayrpt> StuIsolatedInProvince();
+    //重点关注学生
+    List<TbDayrpt> FocusStu();
 
 
 

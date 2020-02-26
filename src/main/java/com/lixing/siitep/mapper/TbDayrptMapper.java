@@ -104,6 +104,8 @@ public interface TbDayrptMapper {
     List<TbDayrpt> StuHotInProvince(TbDayrptExample example);
     //统计各省隔离人数分布
     List<TbDayrpt> StuIsolatedInProvince(TbDayrptExample example);
+    //重点关注学生
+    List<TbDayrpt> FocusStu(TbDayrptExample example);
 
 
 }

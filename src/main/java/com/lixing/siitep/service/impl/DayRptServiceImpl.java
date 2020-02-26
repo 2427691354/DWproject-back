@@ -64,5 +64,13 @@ public class DayRptServiceImpl implements DayRptService
         return tbDayrptMapper.StuIsolatedInProvince(example);
     }
 
+    @Override
+    public List<TbDayrpt> FocusStu() {
+        TbDayrptExample example = new TbDayrptExample();
+        TbDayrptExample.Criteria criteria = example.createCriteria();
+        example.setTableName(tblRecordMapper.selectTableName());
+        return tbDayrptMapper.FocusStu(example);
+    }
+
 
 }

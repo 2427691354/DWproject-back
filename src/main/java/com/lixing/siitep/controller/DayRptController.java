@@ -51,4 +51,10 @@ public class DayRptController {
         return StuIsolatedCount;
     }
 
+    @GetMapping("getFocusStu")
+    @ApiOperation("重点关注学生")
+    private List<TbDayrpt> getFocusStu(){
+        List<TbDayrpt> FocusStu=dayRptService.FocusStu();
+        return FocusStu;
+    }
 }
