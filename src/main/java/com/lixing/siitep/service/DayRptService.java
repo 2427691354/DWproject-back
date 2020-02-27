@@ -27,7 +27,8 @@ public interface DayRptService {
     List<TbDayrpt> FocusStu();
     //体温等级比例
     List<TbDayrpt> getTemperatureGradeRatio();
-
+    //最后创建表时间
+    String NewTime();
 
 
 

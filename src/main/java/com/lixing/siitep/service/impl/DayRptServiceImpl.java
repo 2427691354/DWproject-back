@@ -80,5 +80,13 @@ public class DayRptServiceImpl implements DayRptService
         return tbDayrptMapper.getTemperatureGradeRatio(example);
     }
 
+    @Override
+    public String NewTime() {
+        TbDayrptExample example = new TbDayrptExample();
+        TbDayrptExample.Criteria criteria = example.createCriteria();
+        example.setTableName(tblRecordMapper.selectTableName());
+        return tbDayrptMapper.NewTime(example);
+    }
+
 
 }

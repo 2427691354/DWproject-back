@@ -5,6 +5,7 @@ import com.lixing.siitep.entity.TbDayrptExample;
 import java.util.List;
 import java.util.Map;
 
+import com.lixing.siitep.entity.TblRecord;
 import org.apache.ibatis.annotations.Param;
 
 public interface TbDayrptMapper {
@@ -106,7 +107,10 @@ public interface TbDayrptMapper {
     List<TbDayrpt> StuIsolatedInProvince(TbDayrptExample example);
     //重点关注学生
     List<TbDayrpt> FocusStu(TbDayrptExample example);
-//体温等级比例
+    //体温等级比例
     List<TbDayrpt> getTemperatureGradeRatio(TbDayrptExample example);
+    //最后创建表时间
+    String NewTime(TbDayrptExample example);
+
 
 }

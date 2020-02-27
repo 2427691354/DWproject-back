@@ -1,5 +1,6 @@
 package com.lixing.siitep.controller;
 
+
 import com.lixing.siitep.entity.TbDayrpt;
 import com.lixing.siitep.service.DayRptService;
 import io.swagger.annotations.Api;
@@ -8,9 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.*;
 
-import java.util.List;
-import java.util.Map;
 
 /**
  * @Author: cc
@@ -60,8 +60,14 @@ public class DayRptController {
 
     @GetMapping("getTemperatureGradeRatio")
     @ApiOperation("体温等级比例")
-private List<TbDayrpt> getTemperatureGradeRatio(){
+     private List<TbDayrpt> getTemperatureGradeRatio(){
         List<TbDayrpt> TemperatureGradeRatio=dayRptService.getTemperatureGradeRatio();
         return TemperatureGradeRatio;
+    }
+
+    @GetMapping("getNewTime")
+    @ApiOperation("最后创建表时间")
+    private String NewTime(){
+        return dayRptService.NewTime();
     }
 }

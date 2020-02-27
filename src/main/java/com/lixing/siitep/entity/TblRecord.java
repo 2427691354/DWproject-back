@@ -1,5 +1,6 @@
 package com.lixing.siitep.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,6 +14,7 @@ public class TblRecord {
      *
      * @mbg.generated Mon Feb 24 10:58:52 CST 2020
      */
+
     private Date createTime;
 
     /**
