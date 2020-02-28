@@ -14,7 +14,7 @@ import java.util.Map;
 public interface DayRptService {
 
     // 宏观统计 总人数、隔离人数、发烧人数
-    Map<String,Object> sum();
+    Map<String,Object> sum(String day);
 
     List<TbDayrpt> selectByExample(TbDayrpt tbDayrpt);
     //学生省份物理分布
@@ -32,6 +32,9 @@ public interface DayRptService {
 
     //查询是否存在某日的数据
     int isExist(String tableName);
+    //每天在苏人数
+    List<TbDayrpt> StuInSuZhou();
+
 
 
 

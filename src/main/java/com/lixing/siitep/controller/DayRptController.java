@@ -29,8 +29,10 @@ public class DayRptController {
 
     @GetMapping("sum")
     @ApiOperation("宏观统计 总人数、隔离人数、发烧人数")
-    private Map<String, Object> test() {
-        return dayRptService.sum();
+    @ApiImplicitParam(value = "日期",name = "day",required = false,dataType = "String")
+    private Map<String, Object> test(@RequestParam(name = "day",required = false)String day)
+    {
+        return dayRptService.sum(day);
     }
 
     @GetMapping("getStuInProvince")
@@ -78,4 +80,14 @@ public class DayRptController {
     private String NewTime(){
         return dayRptService.NewTime();
     }
+
+    @GetMapping("getStuInSuZhou")
+    @ApiOperation("每天在苏人数")
+    //@ApiImplicitParam(value = "日期",name = "day",required = false,dataType = "String")
+    private List<TbDayrpt> getStuInSuZhou()
+    {
+        return dayRptService.StuInSuZhou();
+    }
+
+
 }

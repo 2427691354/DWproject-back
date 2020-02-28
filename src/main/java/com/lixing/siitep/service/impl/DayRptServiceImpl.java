@@ -27,11 +27,13 @@ public class DayRptServiceImpl implements DayRptService
     private TbDayrptMapper tbDayrptMapper;
 
     @Override
-    public Map<String, Object> sum() {
-        TbDayrptExample example = new TbDayrptExample();
-        TbDayrptExample.Criteria criteria = example.createCriteria();
-        example.setTableName(tblRecordMapper.selectTableName());
-        return tbDayrptMapper.sum(example);
+    public Map<String, Object> sum(String day) {
+        if(isExist("tb_dayrpt_" + day) == 0){
+            return tbDayrptMapper.sum("tb_dayrpt_" + day);
+        }
+        else{
+            return tbDayrptMapper.sum(tblRecordMapper.selectTableName());
+        }
     }
 
     @Override
@@ -72,9 +74,7 @@ public class DayRptServiceImpl implements DayRptService
             return tbDayrptMapper.StuIsolatedInProvince(tblRecordMapper.selectTableName());
         }
     }
-
     @Override
-
     public List<TbDayrpt> FocusStu(String day) {
         if(isExist("tb_dayrpt_" + day) == 0){
             return tbDayrptMapper.FocusStu("tb_dayrpt_" + day);
@@ -110,6 +110,18 @@ public class DayRptServiceImpl implements DayRptService
         List<TblRecord> tblRecords = tblRecordMapper.selectByExample(example);
         return tblRecords.size()>0 ? 0:-1;
     }
+
+    @Override
+    public List<TbDayrpt> StuInSuZhou() {
+        TbDayrptExample example = new TbDayrptExample();
+        TbDayrptExample.Criteria criteria = example.createCriteria();
+        example.setTableName(tblRecordMapper.selectTableName());
+        return tbDayrptMapper.StuInSuZhou(example);
+
+    }
+
+
+
 
 
 }

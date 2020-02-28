@@ -98,7 +98,7 @@ public interface TbDayrptMapper {
     int updateByPrimaryKey(TbDayrpt record);
 
     // 宏观统计 总人数、隔离人数、发烧人数
-    Map<String,Object> sum(TbDayrptExample example);
+    Map<String,Object> sum(String day);
    //统计各省物理分布人数
     List<TbDayrpt> StuInProvince(String day);
     //统计各省发烧人数分布
@@ -111,7 +111,8 @@ public interface TbDayrptMapper {
     List<TbDayrpt> getTemperatureGradeRatio(String day);
     //最后创建表时间
     String NewTime(TbDayrptExample example);
-    //
+    //在苏人数
+    List<TbDayrpt> StuInSuZhou(TbDayrptExample example);
 
 
 

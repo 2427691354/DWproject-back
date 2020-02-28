@@ -422,7 +422,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="sum" resultType="java.util.Map" parameterType="com.lixing.siitep.entity.TbDayrptExample">
-    select count(id) sum,count(IF ( is_isolated !=0, TRUE, NULL )) sumisolated,count(IF ( temperature >= 37.3, TRUE, NULL ))sumhever
+    select count(id) sum,
+    count(IF ( is_isolated !=0, TRUE, NULL )) sumisolated,
+    count(IF ( temperature >= 37.3, TRUE, NULL ))sumhever,
+    count(IF (location_city = '苏州',TRUE,NULL))stuinSuzhou
     from ${tableName}
 </select>
   <select id="StuInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrpt">
@@ -464,6 +467,44 @@
   <select id="NewTime" resultType="String" parameterType="com.lixing.siitep.entity.TbDayrptExample">
     SELECT Create_time from information_schema.`TABLES` WHERE TABLE_NAME='${tableName}'
 </select>
+  <select id="StuInSuZhou" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
 
+SELECT DATE_FORMAT(t.up_time,"%Y%m%d"),count(id) stuinSuZhou
+FROM
+(
+select *
+FROM tb_dayrpt_0219
+where location_city='苏州'
+UNION ALL
+select *
+FROM tb_dayrpt_0220
+where location_city='苏州'
+UNION ALL
+select *
+FROM tb_dayrpt_0221
+where location_city='苏州'
+UNION ALL
+select *
+FROM tb_dayrpt_0222
+where location_city='苏州'
+UNION ALL
+select *
+FROM tb_dayrpt_0223
+where location_city='苏州'
+UNION ALL
+select *
+FROM tb_dayrpt_0224
+where location_city='苏州'
+UNION ALL
+select *
+FROM tb_dayrpt_0225
+where location_city='苏州'
+UNION ALL
+select *
+FROM tb_dayrpt_0226
+where location_city='苏州'
+) t
+GROUP BY DATE_FORMAT(t.up_time,"%Y%m%d")
+</select>
 
 </mapper>
