@@ -425,7 +425,7 @@
     select count(id) sum,count(IF ( is_isolated !=0, TRUE, NULL )) sumisolated,count(IF ( temperature >= 37.3, TRUE, NULL ))sumhever
     from ${tableName}
 </select>
-  <select id="StuInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
+  <select id="StuInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrpt">
     select location_province,count(id) count
     from ${tableName}
     GROUP BY location_province
