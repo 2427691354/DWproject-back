@@ -2,6 +2,7 @@ package com.lixing.siitep.controller;
 
 
 import com.lixing.siitep.entity.TbDayrpt;
+import com.lixing.siitep.entity.TblRecord;
 import com.lixing.siitep.service.DayRptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -34,8 +35,9 @@ public class DayRptController {
 
     @GetMapping("getStuInProvince")
     @ApiOperation("统计学生各省物理分布人数")
-    private List<TbDayrpt> getStuInProvince(){
-        List<TbDayrpt> StuCount=dayRptService.StuInProvince();
+    @ApiImplicitParam(value = "day",name = "日期",required = false,dataType = "String")
+    private List<TbDayrpt> getStuInProvince(@RequestParam(value = "day")String day){
+        List<TbDayrpt> StuCount=dayRptService.StuInProvince(day);
         return StuCount;
     }
 

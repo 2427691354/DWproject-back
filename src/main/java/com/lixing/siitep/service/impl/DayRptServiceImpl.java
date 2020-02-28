@@ -41,11 +41,9 @@ public class DayRptServiceImpl implements DayRptService
     }
 
     @Override
-    public List<TbDayrpt> StuInProvince() {
-        TbDayrptExample example = new TbDayrptExample();
-        TbDayrptExample.Criteria criteria = example.createCriteria();
-        example.setTableName(tblRecordMapper.selectTableName());
-        return tbDayrptMapper.StuInProvince(example);
+    public List<TbDayrpt> StuInProvince(String day) {
+        String dayrpt="tb_dayrpt_"+day;
+        return tbDayrptMapper.StuInProvince(dayrpt);
     }
 
     @Override
@@ -53,6 +51,7 @@ public class DayRptServiceImpl implements DayRptService
         TbDayrptExample example = new TbDayrptExample();
         TbDayrptExample.Criteria criteria = example.createCriteria();
         example.setTableName(tblRecordMapper.selectTableName());
+
         return tbDayrptMapper.StuHotInProvince(example);
     }
 
@@ -75,7 +74,7 @@ public class DayRptServiceImpl implements DayRptService
 
     @Override
     public List<TbDayrpt> getTemperatureGradeRatio(String day) {
-      String dayrpt="tb_dayrpt_"+day;
+        String dayrpt="tb_dayrpt_"+day;
         return tbDayrptMapper.getTemperatureGradeRatio(dayrpt);
     }
 
@@ -86,6 +85,9 @@ public class DayRptServiceImpl implements DayRptService
         example.setTableName(tblRecordMapper.selectTableName());
         return tbDayrptMapper.NewTime(example);
     }
+
+
+
 
 
 }

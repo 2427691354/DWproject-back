@@ -18,7 +18,7 @@ public interface DayRptService {
 
     List<TbDayrpt> selectByExample(TbDayrpt tbDayrpt);
     //学生省份物理分布
-    List<TbDayrpt> StuInProvince();
+    List<TbDayrpt> StuInProvince(String day);
     //学生发烧人数分布省份
     List<TbDayrpt> StuHotInProvince();
     //学生隔离人数分布省份
@@ -29,6 +29,8 @@ public interface DayRptService {
     List<TbDayrpt> getTemperatureGradeRatio(String day);
     //最后创建表时间
     String NewTime();
+
+
 
 
 

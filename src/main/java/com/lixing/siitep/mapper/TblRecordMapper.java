@@ -65,4 +65,5 @@ public interface TblRecordMapper {
     // 查找最新的日报表名
     String selectTableName();
 
+
 }
