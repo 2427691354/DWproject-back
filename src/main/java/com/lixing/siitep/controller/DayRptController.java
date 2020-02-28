@@ -3,10 +3,13 @@ package com.lixing.siitep.controller;
 import com.lixing.siitep.entity.TbDayrpt;
 import com.lixing.siitep.service.DayRptService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -60,8 +63,11 @@ public class DayRptController {
 
     @GetMapping("getTemperatureGradeRatio")
     @ApiOperation("体温等级比例")
-private List<TbDayrpt> getTemperatureGradeRatio(){
-        List<TbDayrpt> TemperatureGradeRatio=dayRptService.getTemperatureGradeRatio();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "day", value = "日期",  required = false,dataType = "String")
+    })
+private List<TbDayrpt> getTemperatureGradeRatio(@RequestParam(value = "day",required = false) String day){
+        List<TbDayrpt> TemperatureGradeRatio=dayRptService.getTemperatureGradeRatio(day);
         return TemperatureGradeRatio;
     }
 }

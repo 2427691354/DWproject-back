@@ -73,11 +73,9 @@ public class DayRptServiceImpl implements DayRptService
         return tbDayrptMapper.FocusStu(example);
     }
 
-    public List<TbDayrpt> getTemperatureGradeRatio() {
-        TbDayrptExample example = new TbDayrptExample();
-        TbDayrptExample.Criteria criteria = example.createCriteria();
-        example.setTableName(tblRecordMapper.selectTableName());
-        return tbDayrptMapper.getTemperatureGradeRatio(example);
+    public List<TbDayrpt> getTemperatureGradeRatio(String day) {
+      String dayrpt="tb_dayrpt_"+day;
+        return tbDayrptMapper.getTemperatureGradeRatio(dayrpt);
     }
 
 
