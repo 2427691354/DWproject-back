@@ -455,11 +455,11 @@
   </select>
   <select id="getTemperatureGradeRatio" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrpt">
     SELECT
-    count( IF ( temperature >= 39.1, TRUE, NULL ) ) highfever,
-    count( IF ( temperature >= 38.1, TRUE, NULL ) ) moderatefever,
-    count( IF ( temperature >= 37.3 , TRUE, NULL ) ) lowfever,
-    count( IF ( 37.3 > temperature, TRUE, NULL ) ) normal
-    from ${tableName}
+    COUNT(IF(temperature <![CDATA[ < ]]>37.3,true,NULL)) normal,
+    COUNT(IF(temperature>=37.3 and temperature <![CDATA[ <= ]]> 38,TRUE,NULL))lowfever,
+    COUNT(IF(temperature>=38.1 and temperature <![CDATA[ <= ]]> 39,TRUE,NULL)) moderatefever,
+    COUNT(IF(temperature>=39.1,TRUE,NULL))highfever
+    from  ${tableName}
   </select>
   <select id="NewTime" resultType="String" parameterType="com.lixing.siitep.entity.TbDayrptExample">
     SELECT Create_time from information_schema.`TABLES` WHERE TABLE_NAME='${tableName}'

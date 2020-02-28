@@ -269,7 +269,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectRumortitle" parameterType="com.lixing.siitep.entity.TbRumorExample" resultMap="BaseResultMap">
-    select title
+    select title, explain_rumor
     from tb_rumor
   </select>
 </mapper>
