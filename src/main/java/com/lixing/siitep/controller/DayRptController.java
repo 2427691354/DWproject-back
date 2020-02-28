@@ -66,6 +66,7 @@ public class DayRptController {
     @ApiOperation("体温等级比例")
     @ApiImplicitParam(value = "day",name = "日期",required = false,dataType = "String")
      private List<TbDayrpt> getTemperatureGradeRatio(@RequestParam(value = "day")String day){
+      //  System.err.println(day);
         List<TbDayrpt> TemperatureGradeRatio=dayRptService.getTemperatureGradeRatio(day);
         return TemperatureGradeRatio;
     }

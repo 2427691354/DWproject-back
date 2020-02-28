@@ -74,8 +74,16 @@ public class DayRptServiceImpl implements DayRptService
 
     @Override
     public List<TbDayrpt> getTemperatureGradeRatio(String day) {
-        String dayrpt="tb_dayrpt_"+day;
-        return tbDayrptMapper.getTemperatureGradeRatio(dayrpt);
+
+        if(day == ""){
+
+            System.out.println(tblRecordMapper.selectTableName());
+            return tbDayrptMapper.getTemperatureGradeRatio(tblRecordMapper.selectTableName());
+
+        }else {
+            String dayrpt = "tb_dayrpt_" + day;
+            return tbDayrptMapper.getTemperatureGradeRatio(dayrpt);
+        }
     }
 
     @Override
