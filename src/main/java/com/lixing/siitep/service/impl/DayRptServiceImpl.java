@@ -44,52 +44,43 @@ public class DayRptServiceImpl implements DayRptService
 
     @Override
     public List<TbDayrpt> StuInProvince(String day) {
-        if(day=="") {
-            System.out.println(tblRecordMapper.selectTableName());
-
+        if(isExist("tb_dayrpt_" + day) == 0){
+            return tbDayrptMapper.StuInProvince("tb_dayrpt_" + day);
+        }
+        else{
             return tbDayrptMapper.StuInProvince(tblRecordMapper.selectTableName());
-        }else {
-            String dayrpt = "tb_dayrpt_" + day;
-            return tbDayrptMapper.StuInProvince(dayrpt);
         }
 
     }
 
     @Override
     public List<TbDayrpt> StuHotInProvince(String day) {
-        if(day==""){
-            System.out.println(tblRecordMapper.selectTableName());
+        if(isExist("tb_dayrpt_" + day) == 0){
+            return tbDayrptMapper.StuHotInProvince("tb_dayrpt_" + day);
+        }
+        else{
             return tbDayrptMapper.StuHotInProvince(tblRecordMapper.selectTableName());
-
-        }else{
-
-            String dayrpt = "tb_dayrpt_" + day;
-            return tbDayrptMapper.StuHotInProvince(dayrpt);
         }
     }
 
     @Override
     public List<TbDayrpt> StuIsolatedInProvince(String day) {
-        if(day==""){
-            System.out.println(tblRecordMapper.selectTableName());
+        if(isExist("tb_dayrpt_" + day) == 0){
+            return tbDayrptMapper.StuIsolatedInProvince("tb_dayrpt_" + day);
+        }
+        else{
             return tbDayrptMapper.StuIsolatedInProvince(tblRecordMapper.selectTableName());
-
-        }else{
-            String dayrpt = "tb_dayrpt_" + day;
-            return tbDayrptMapper.StuIsolatedInProvince(dayrpt);
         }
     }
 
     @Override
 
     public List<TbDayrpt> FocusStu(String day) {
-        if(day==""){
-            System.out.println(tblRecordMapper.selectTableName());
+        if(isExist("tb_dayrpt_" + day) == 0){
+            return tbDayrptMapper.FocusStu("tb_dayrpt_" + day);
+        }
+        else{
             return tbDayrptMapper.FocusStu(tblRecordMapper.selectTableName());
-
-        }else{
-            String dayrpt = "tb_dayrpt_" + day;
-            return tbDayrptMapper.FocusStu(dayrpt);
         }
     }
 
