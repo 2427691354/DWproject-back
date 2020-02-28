@@ -446,6 +446,7 @@
 	c_name,
 	s_id,
     temperature,
+    quarantine,
     IF
 	( is_isolated = 1, 'ISOLATION', '发烧' ) STATUS
     from ${tableName}
@@ -460,5 +461,9 @@
     count( IF ( 37.3 > temperature, TRUE, NULL ) ) normal
     from ${tableName}
   </select>
+  <select id="NewTime" resultType="String" parameterType="com.lixing.siitep.entity.TbDayrptExample">
+    SELECT Create_time from information_schema.`TABLES` WHERE TABLE_NAME='${tableName}'
+</select>
+
 
 </mapper>

@@ -26,8 +26,9 @@ public interface DayRptService {
     //重点关注学生
     List<TbDayrpt> FocusStu();
     //体温等级比例
-    List<TbDayrpt> getTemperatureGradeRatio(String day);
-
+    List<TbDayrpt> getTemperatureGradeRatio();
+    //最后创建表时间
+    String NewTime();
 
 
 
