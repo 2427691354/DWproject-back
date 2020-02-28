@@ -433,14 +433,14 @@
   <select id="StuHotInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
     select location_province,count(id) count
     from ${tableName} WHERE temperature>=37.3
-    GROUP BY location_province/
+    GROUP BY location_province
       </select>
-  <select id="StuIsolatedInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
+  <select id="StuIsolatedInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrpt">
     select location_province,count(id) count
     from ${tableName} WHERE is_isolated !=0
     GROUP BY location_province
   </select>
-  <select id="FocusStu" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
+  <select id="FocusStu" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrpt">
     SELECT
 	s_name,
 	c_name,
@@ -448,7 +448,7 @@
     temperature,
     quarantine,
     IF
-	( is_isolated = 1, 'ISOLATION', '发烧' ) STATUS
+	( is_isolated = 1, '隔离', '发烧' ) STATUS
     from ${tableName}
     WHERE
 	is_isolated = 1 OR temperature >= 37.3

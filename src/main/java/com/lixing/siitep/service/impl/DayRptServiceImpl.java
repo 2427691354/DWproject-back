@@ -42,34 +42,53 @@ public class DayRptServiceImpl implements DayRptService
 
     @Override
     public List<TbDayrpt> StuInProvince(String day) {
-        String dayrpt="tb_dayrpt_"+day;
-        return tbDayrptMapper.StuInProvince(dayrpt);
+        if(day=="") {
+            System.out.println(tblRecordMapper.selectTableName());
+
+            return tbDayrptMapper.StuInProvince(tblRecordMapper.selectTableName());
+        }else {
+            String dayrpt = "tb_dayrpt_" + day;
+            return tbDayrptMapper.StuInProvince(dayrpt);
+        }
+
     }
 
     @Override
-    public List<TbDayrpt> StuHotInProvince() {
-        TbDayrptExample example = new TbDayrptExample();
-        TbDayrptExample.Criteria criteria = example.createCriteria();
-        example.setTableName(tblRecordMapper.selectTableName());
+    public List<TbDayrpt> StuHotInProvince(String day) {
+        if(day==""){
+            System.out.println(tblRecordMapper.selectTableName());
+            return tbDayrptMapper.StuHotInProvince(tblRecordMapper.selectTableName());
 
-        return tbDayrptMapper.StuHotInProvince(example);
+        }else{
+
+            String dayrpt = "tb_dayrpt_" + day;
+            return tbDayrptMapper.StuHotInProvince(dayrpt);
+        }
     }
 
     @Override
-    public List<TbDayrpt> StuIsolatedInProvince() {
-        TbDayrptExample example = new TbDayrptExample();
-        TbDayrptExample.Criteria criteria = example.createCriteria();
-        example.setTableName(tblRecordMapper.selectTableName());
-        return tbDayrptMapper.StuIsolatedInProvince(example);
+    public List<TbDayrpt> StuIsolatedInProvince(String day) {
+        if(day==""){
+            System.out.println(tblRecordMapper.selectTableName());
+            return tbDayrptMapper.StuIsolatedInProvince(tblRecordMapper.selectTableName());
+
+        }else{
+            String dayrpt = "tb_dayrpt_" + day;
+            return tbDayrptMapper.StuIsolatedInProvince(dayrpt);
+        }
     }
 
     @Override
 
-    public List<TbDayrpt> FocusStu() {
-        TbDayrptExample example = new TbDayrptExample();
-        TbDayrptExample.Criteria criteria = example.createCriteria();
-        example.setTableName(tblRecordMapper.selectTableName());
-        return tbDayrptMapper.FocusStu(example);
+    public List<TbDayrpt> FocusStu(String day) {
+        if(day==""){
+            System.out.println(tblRecordMapper.selectTableName());
+            return tbDayrptMapper.FocusStu(tblRecordMapper.selectTableName());
+
+        }else{
+            String dayrpt = "tb_dayrpt_" + day;
+            return tbDayrptMapper.FocusStu(dayrpt);
+        }
     }
 
     @Override

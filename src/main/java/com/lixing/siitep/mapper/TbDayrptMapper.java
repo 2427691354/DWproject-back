@@ -102,11 +102,11 @@ public interface TbDayrptMapper {
    //统计各省物理分布人数
     List<TbDayrpt> StuInProvince(String day);
     //统计各省发烧人数分布
-    List<TbDayrpt> StuHotInProvince(TbDayrptExample example);
+    List<TbDayrpt> StuHotInProvince(String day);
     //统计各省隔离人数分布
-    List<TbDayrpt> StuIsolatedInProvince(TbDayrptExample example);
+    List<TbDayrpt> StuIsolatedInProvince(String day);
     //重点关注学生
-    List<TbDayrpt> FocusStu(TbDayrptExample example);
+    List<TbDayrpt> FocusStu(String day);
     //体温等级比例
     List<TbDayrpt> getTemperatureGradeRatio(String day);
     //最后创建表时间

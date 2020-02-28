@@ -37,28 +37,31 @@ public class DayRptController {
     @ApiOperation("统计学生各省物理分布人数")
     @ApiImplicitParam(value = "day",name = "日期",required = false,dataType = "String")
     private List<TbDayrpt> getStuInProvince(@RequestParam(value = "day")String day){
-        List<TbDayrpt> StuCount=dayRptService.StuInProvince(day);
-        return StuCount;
+            List<TbDayrpt> StuCount = dayRptService.StuInProvince(day);
+            return StuCount;
     }
 
     @GetMapping("getStuHotInProvince")
     @ApiOperation("统计学生各省发烧分布人数")
-    private List<TbDayrpt> getStuHotInProvince(){
-        List<TbDayrpt> StuHotCount=dayRptService.StuHotInProvince();
+    @ApiImplicitParam(value = "day",name = "日期",required = false,dataType = "String")
+    private List<TbDayrpt> getStuHotInProvince(@RequestParam(value = "day")String day){
+        List<TbDayrpt> StuHotCount=dayRptService.StuHotInProvince(day);
         return StuHotCount;
     }
 
     @GetMapping("getStuIsolatedInProvince")
     @ApiOperation("统计学生各省隔离分布人数")
-    private List<TbDayrpt> getStuIsolatedInProvince(){
-        List<TbDayrpt> StuIsolatedCount=dayRptService.StuIsolatedInProvince();
+    @ApiImplicitParam(value = "day",name = "日期",required = false,dataType = "String")
+    private List<TbDayrpt> getStuIsolatedInProvince(@RequestParam(value = "day")String day){
+        List<TbDayrpt> StuIsolatedCount=dayRptService.StuIsolatedInProvince(day);
         return StuIsolatedCount;
     }
 
     @GetMapping("getFocusStu")
     @ApiOperation("重点关注学生")
-    private List<TbDayrpt> getFocusStu(){
-        List<TbDayrpt> FocusStu=dayRptService.FocusStu();
+    @ApiImplicitParam(value = "day",name = "日期",required = false,dataType = "String")
+    private List<TbDayrpt> getFocusStu(@RequestParam(value = "day")String day){
+        List<TbDayrpt> FocusStu=dayRptService.FocusStu(day);
         return FocusStu;
     }
 
