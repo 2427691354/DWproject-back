@@ -108,7 +108,7 @@ public interface TbDayrptMapper {
     //重点关注学生
     List<TbDayrpt> FocusStu(TbDayrptExample example);
     //体温等级比例
-    List<TbDayrpt> getTemperatureGradeRatio(TbDayrptExample example);
+    List<TbDayrpt> getTemperatureGradeRatio(String day);
     //最后创建表时间
     String NewTime(TbDayrptExample example);
 

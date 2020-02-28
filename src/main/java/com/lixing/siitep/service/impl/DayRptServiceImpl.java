@@ -73,6 +73,7 @@ public class DayRptServiceImpl implements DayRptService
         return tbDayrptMapper.FocusStu(example);
     }
 
+    @Override
     public List<TbDayrpt> getTemperatureGradeRatio(String day) {
       String dayrpt="tb_dayrpt_"+day;
         return tbDayrptMapper.getTemperatureGradeRatio(dayrpt);
