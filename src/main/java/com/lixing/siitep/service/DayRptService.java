@@ -30,6 +30,8 @@ public interface DayRptService {
     //最后创建表时间
     String NewTime();
 
+    //查询是否存在某日的数据
+    int isExist(String tableName);
 
 
 

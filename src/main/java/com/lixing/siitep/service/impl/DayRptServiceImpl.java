@@ -2,6 +2,8 @@ package com.lixing.siitep.service.impl;
 
 import com.lixing.siitep.entity.TbDayrpt;
 import com.lixing.siitep.entity.TbDayrptExample;
+import com.lixing.siitep.entity.TblRecord;
+import com.lixing.siitep.entity.TblRecordExample;
 import com.lixing.siitep.mapper.TbDayrptMapper;
 import com.lixing.siitep.mapper.TblRecordMapper;
 import com.lixing.siitep.service.DayRptService;
@@ -93,15 +95,11 @@ public class DayRptServiceImpl implements DayRptService
 
     @Override
     public List<TbDayrpt> getTemperatureGradeRatio(String day) {
-
-        if(day == ""){
-
-            System.out.println(tblRecordMapper.selectTableName());
+        if(isExist("tb_dayrpt_" + day) == 0){
+            return tbDayrptMapper.getTemperatureGradeRatio("tb_dayrpt_" + day);
+        }
+        else{
             return tbDayrptMapper.getTemperatureGradeRatio(tblRecordMapper.selectTableName());
-
-        }else {
-            String dayrpt = "tb_dayrpt_" + day;
-            return tbDayrptMapper.getTemperatureGradeRatio(dayrpt);
         }
     }
 
@@ -113,8 +111,14 @@ public class DayRptServiceImpl implements DayRptService
         return tbDayrptMapper.NewTime(example);
     }
 
-
-
+    @Override
+    public int isExist(String tableName) {
+        TblRecordExample example = new TblRecordExample();
+        TblRecordExample.Criteria criteria = example.createCriteria();
+        criteria.andTableNameEqualTo(tableName);
+        List<TblRecord> tblRecords = tblRecordMapper.selectByExample(example);
+        return tblRecords.size()>0 ? 0:-1;
+    }
 
 
 }
