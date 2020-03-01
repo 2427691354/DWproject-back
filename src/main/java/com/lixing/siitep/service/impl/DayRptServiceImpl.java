@@ -10,6 +10,7 @@ import com.lixing.siitep.service.DayRptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -112,16 +113,16 @@ public class DayRptServiceImpl implements DayRptService
     }
 
     @Override
-    public List<TbDayrpt> StuInSuZhou() {
-        TbDayrptExample example = new TbDayrptExample();
-        TbDayrptExample.Criteria criteria = example.createCriteria();
-        example.setTableName(tblRecordMapper.selectTableName());
-        return tbDayrptMapper.StuInSuZhou(example);
-
+    public List<TbDayrpt> StuInSuZhou(String city,String province) {
+        List<String> list = tblRecordMapper.OneWeekTable();
+        List<TbDayrpt> tbDayrpts = null;
+        if(city!=null){
+            tbDayrpts = tbDayrptMapper.StuInSuZhou(list,city,null);
+        }
+        if(province!=null){
+            tbDayrpts =  tbDayrptMapper.StuInSuZhou(list,null,province);
+        }
+        return tbDayrpts;
     }
-
-
-
-
 
 }

@@ -425,8 +425,7 @@
     select count(id) sum,
     count(IF ( is_isolated !=0, TRUE, NULL )) sumisolated,
     count(IF ( temperature >= 37.3, TRUE, NULL ))sumhever,
-    count(IF (location_city = '苏州',TRUE,NULL))stuinSuzhou,
-    count(IF (location_province = '江苏',TRUE,NULL))stuInJiangSu
+    count(IF (location_city = '苏州',TRUE,NULL))stuinSuzhou
     from ${tableName}
 </select>
   <select id="StuInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrpt">
@@ -467,7 +466,7 @@
     from  ${tableName}
   </select>
   <select id="NewTime" resultType="String" parameterType="com.lixing.siitep.entity.TbDayrptExample">
-    SELECT Create_time from information_schema.`TABLES` WHERE TABLE_NAME='${tableName}'
+    SELECT create_time as Create_time from tbl_record ORDER BY create_time desc limit 1
 </select>
   <select id="StuInSuZhou" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
 

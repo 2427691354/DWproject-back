@@ -112,9 +112,6 @@ public interface TbDayrptMapper {
     //最后创建表时间
     String NewTime(TbDayrptExample example);
     //在苏人数
-    List<TbDayrpt> StuInSuZhou(TbDayrptExample example);
-
-
-
+    List<TbDayrpt> StuInSuZhou(@Param("list")List<String> list,@Param("city")String city,@Param("province")String province);
 
 }

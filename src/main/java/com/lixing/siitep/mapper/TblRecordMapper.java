@@ -65,7 +65,7 @@ public interface TblRecordMapper {
     // 查找最新的日报表名
     String selectTableName();
     //获取一周的表
-    String OneWeekTable();
+    List<String> OneWeekTable();
 
 
 }

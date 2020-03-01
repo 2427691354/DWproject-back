@@ -6,6 +6,7 @@ import com.lixing.siitep.entity.TblRecord;
 import com.lixing.siitep.service.DayRptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -83,9 +84,15 @@ public class DayRptController {
 
     @GetMapping("getStuInSuZhou")
     @ApiOperation("每天在苏人数")
-    private List<TbDayrpt> getStuInSuZhou()
+    @ApiImplicitParams(
+            {
+                    @ApiImplicitParam(value = "城市（苏州）",name = "city",required = false,dataType = "String"),
+                    @ApiImplicitParam(value = "省份（江苏）",name = "province",required = false,dataType = "String")
+            }
+    )
+    private List<TbDayrpt> getStuInSuZhou(@RequestParam(name = "city",required = false)String  city,@RequestParam(name = "province",required = false)String province)
     {
-        return dayRptService.StuInSuZhou();
+        return dayRptService.StuInSuZhou(city,province);
     }
 
 

@@ -199,7 +199,7 @@
     limit 1
   </select>
   <select id="OneWeekTable" resultType="string">
-   select table_name from tbl_record ORDER BY create_time LIMIT 7
+   select table_name from tbl_record ORDER BY create_time desc LIMIT 7
   </select>
 
 </mapper>

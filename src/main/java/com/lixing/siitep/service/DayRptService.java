@@ -33,7 +33,7 @@ public interface DayRptService {
     //查询是否存在某日的数据
     int isExist(String tableName);
     //每天在苏人数
-    List<TbDayrpt> StuInSuZhou();
+    List<TbDayrpt> StuInSuZhou(String city,String province);
 
 
 
