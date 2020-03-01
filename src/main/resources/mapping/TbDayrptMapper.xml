@@ -432,6 +432,7 @@
     select location_province,count(id) count
     from ${tableName}
     GROUP BY location_province
+    ORDER BY count desc
   </select>
   <select id="StuHotInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
     select location_province,count(id) count
@@ -469,7 +470,7 @@
 </select>
   <select id="StuInSuZhou" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
 
-SELECT DATE_FORMAT(t.up_time,"%Y%m%d"),count(id) stuinSuZhou
+SELECT DATE_FORMAT(t.up_time,"%Y%m%d") time,count(id) stuinSuZhou
 FROM
 (
 select *
