@@ -83,7 +83,6 @@ public class DayRptController {
 
     @GetMapping("getStuInSuZhou")
     @ApiOperation("每天在苏人数")
-    //@ApiImplicitParam(value = "日期",name = "day",required = false,dataType = "String")
     private List<TbDayrpt> getStuInSuZhou()
     {
         return dayRptService.StuInSuZhou();
