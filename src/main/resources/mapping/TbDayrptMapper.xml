@@ -468,44 +468,68 @@
   <select id="NewTime" resultType="String" parameterType="com.lixing.siitep.entity.TbDayrptExample">
     SELECT create_time as Create_time from tbl_record ORDER BY create_time desc limit 1
 </select>
-  <select id="StuInSuZhou" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">
+  <!--<select id="StuInSuZhou" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrptExample">-->
 
-SELECT DATE_FORMAT(t.up_time,"%Y%m%d") time,count(id) stuinSuZhou
-FROM
-(
-select *
-FROM tb_dayrpt_0219
-where location_city='苏州'
-UNION ALL
-select *
-FROM tb_dayrpt_0220
-where location_city='苏州'
-UNION ALL
-select *
-FROM tb_dayrpt_0221
-where location_city='苏州'
-UNION ALL
-select *
-FROM tb_dayrpt_0222
-where location_city='苏州'
-UNION ALL
-select *
-FROM tb_dayrpt_0223
-where location_city='苏州'
-UNION ALL
-select *
-FROM tb_dayrpt_0224
-where location_city='苏州'
-UNION ALL
-select *
-FROM tb_dayrpt_0225
-where location_city='苏州'
-UNION ALL
-select *
-FROM tb_dayrpt_0226
-where location_city='苏州'
-) t
-GROUP BY DATE_FORMAT(t.up_time,"%Y%m%d")
-</select>
+<!--SELECT DATE_FORMAT(t.up_time,"%Y%m%d") time,count(id) stuinSuZhou-->
+<!--FROM-->
+<!--(-->
+<!--select *-->
+<!--FROM tb_dayrpt_0219-->
+<!--where location_city='苏州'-->
+<!--UNION ALL-->
+<!--select *-->
+<!--FROM tb_dayrpt_0220-->
+<!--where location_city='苏州'-->
+<!--UNION ALL-->
+<!--select *-->
+<!--FROM tb_dayrpt_0221-->
+<!--where location_city='苏州'-->
+<!--UNION ALL-->
+<!--select *-->
+<!--FROM tb_dayrpt_0222-->
+<!--where location_city='苏州'-->
+<!--UNION ALL-->
+<!--select *-->
+<!--FROM tb_dayrpt_0223-->
+<!--where location_city='苏州'-->
+<!--UNION ALL-->
+<!--select *-->
+<!--FROM tb_dayrpt_0224-->
+<!--where location_city='苏州'-->
+<!--UNION ALL-->
+<!--select *-->
+<!--FROM tb_dayrpt_0225-->
+<!--where location_city='苏州'-->
+<!--UNION ALL-->
+<!--select *-->
+<!--FROM tb_dayrpt_0226-->
+<!--where location_city='苏州'-->
+<!--) t-->
+<!--GROUP BY DATE_FORMAT(t.up_time,"%Y%m%d")-->
+<!--</select>-->
+
+  <select id="StuInSuZhou" resultType="java.util.HashMap">
+    SELECT DATE_FORMAT(t.up_time,"%Y%m%d") time,count(id) stuinSuZhou
+    FROM
+    (
+    select *
+    FROM tb_dayrpt
+    <if test="list != null">
+      <foreach collection="list" index="index" item="item"  separator="" >
+        union all
+        select *
+        from ${item}
+        <if test="city != null">
+          where location_city=#{city,jdbcType=VARCHAR}
+        </if>
+        <if test="province != null">
+          where location_province=#{province,jdbcType=VARCHAR}
+        </if>
+      </foreach>
+    </if>
+    ) t
+    GROUP BY DATE_FORMAT(t.up_time,"%Y%m%d")
+  </select>
+
 
 </mapper>
