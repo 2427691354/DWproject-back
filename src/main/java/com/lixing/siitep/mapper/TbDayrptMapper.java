@@ -116,4 +116,7 @@ public interface TbDayrptMapper {
 
     //发烧趋势
     List<TbDayrpt> StuFeverTrend(List<String> list);
+
+    //隔离人数
+    List<TbDayrpt> StuIsolated(List<String> list);
 }

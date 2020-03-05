@@ -550,4 +550,21 @@
     GROUP BY DATE_FORMAT(t.up_time,"%Y%m%d")
   </select>
 
+  <select id="StuIsolated" resultType="java.util.HashMap">
+    SELECT DATE_FORMAT(t.up_time,"%Y%m%d") time,count(id) stuFeverTrend
+    FROM
+    (
+    select *
+    FROM tb_dayrpt
+    <if test="list != null">
+      <foreach collection="list" index="index" item="item"  separator="" >
+        union all
+        select *
+        from ${item}
+        where is_isolated !=0
+      </foreach>
+    </if>
+    ) t
+    GROUP BY DATE_FORMAT(t.up_time,"%Y%m%d")
+  </select>
 </mapper>

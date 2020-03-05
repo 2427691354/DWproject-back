@@ -132,4 +132,11 @@ public class DayRptServiceImpl implements DayRptService
         return tbDayrpts;
     }
 
+    @Override
+    public List<TbDayrpt> StuIsolated() {
+        List<String> list = tblRecordMapper.OneWeekTable();
+        List<TbDayrpt> tbDayrpts =tbDayrptMapper.StuIsolated(list);
+        return tbDayrpts;
+    }
+
 }
