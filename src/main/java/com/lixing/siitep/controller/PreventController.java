@@ -41,6 +41,4 @@ public class PreventController {
         return diagnosisService.selectFromRumorTitle();
     }
 
-
-
 }

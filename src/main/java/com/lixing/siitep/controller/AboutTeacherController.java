@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @Api(tags = "值日老师相关接口")
 @RequestMapping("/duty/")
@@ -19,9 +21,14 @@ public class AboutTeacherController {
 
     @GetMapping("dutyteacher")
     @ApiOperation("根据当前日期返回值日老师")
-    public String selectDutyTeacherByTime(){
-        String teacher=aboutTeacherService.selectDutyTeacherBytime();
-        return teacher;
+    public List<TbDuty> selectDutyTeacherByTime(){
+       // String teacher=aboutTeacherService.selectDutyTeacherBytime();
+        return aboutTeacherService.selectDutyTeacherBytime();
+    }
+    @GetMapping("selectTeacher")
+    @ApiOperation("返回所有值班老师信息")
+    private List<TbDuty> selectTeacher(){
+        return aboutTeacherService.selectTeacher();
     }
 
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lixing.siitep.mapper.TbDutyMapper">
-  <resultMap id="BaseResultMap" type="com.lixing.siitep.entity.TbDuty">
+<mapper namespace="com.lixing.siitep.mapper.TbClassPlatformMapper">
+  <resultMap id="BaseResultMap" type="com.lixing.siitep.entity.TbClassPlatform">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="time" jdbcType="VARCHAR" property="time" />
-    <result column="t_id" jdbcType="INTEGER" property="tId" />
+    <result column="c_name" jdbcType="VARCHAR" property="cName" />
+    <result column="platform" jdbcType="VARCHAR" property="platform" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, time, t_id
+    id, c_name, platform
   </sql>
-  <select id="selectByExample" parameterType="com.lixing.siitep.entity.TbDutyExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.lixing.siitep.entity.TbClassPlatformExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_duty
+    from tb_class_platform
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,67 +84,67 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_duty
+    from tb_class_platform
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_duty
+    delete from tb_class_platform
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.lixing.siitep.entity.TbDutyExample">
-    delete from tb_duty
+  <delete id="deleteByExample" parameterType="com.lixing.siitep.entity.TbClassPlatformExample">
+    delete from tb_class_platform
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.lixing.siitep.entity.TbDuty">
-    insert into tb_duty (id, time, t_id
+  <insert id="insert" parameterType="com.lixing.siitep.entity.TbClassPlatform">
+    insert into tb_class_platform (id, c_name, platform
       )
-    values (#{id,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}, #{tId,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{cName,jdbcType=VARCHAR}, #{platform,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.lixing.siitep.entity.TbDuty">
-    insert into tb_duty
+  <insert id="insertSelective" parameterType="com.lixing.siitep.entity.TbClassPlatform">
+    insert into tb_class_platform
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="time != null">
-        time,
+      <if test="cName != null">
+        c_name,
       </if>
-      <if test="tId != null">
-        t_id,
+      <if test="platform != null">
+        platform,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="time != null">
-        #{time,jdbcType=VARCHAR},
+      <if test="cName != null">
+        #{cName,jdbcType=VARCHAR},
       </if>
-      <if test="tId != null">
-        #{tId,jdbcType=INTEGER},
+      <if test="platform != null">
+        #{platform,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.lixing.siitep.entity.TbDutyExample" resultType="java.lang.Long">
-    select count(*) from tb_duty
+  <select id="countByExample" parameterType="com.lixing.siitep.entity.TbClassPlatformExample" resultType="java.lang.Long">
+    select count(*) from tb_class_platform
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update tb_duty
+    update tb_class_platform
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.time != null">
-        time = #{record.time,jdbcType=VARCHAR},
+      <if test="record.cName != null">
+        c_name = #{record.cName,jdbcType=VARCHAR},
       </if>
-      <if test="record.tId != null">
-        t_id = #{record.tId,jdbcType=INTEGER},
+      <if test="record.platform != null">
+        platform = #{record.platform,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -152,41 +152,41 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update tb_duty
+    update tb_class_platform
     set id = #{record.id,jdbcType=INTEGER},
-      time = #{record.time,jdbcType=VARCHAR},
-      t_id = #{record.tId,jdbcType=INTEGER}
+      c_name = #{record.cName,jdbcType=VARCHAR},
+      platform = #{record.platform,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lixing.siitep.entity.TbDuty">
-    update tb_duty
+  <update id="updateByPrimaryKeySelective" parameterType="com.lixing.siitep.entity.TbClassPlatform">
+    update tb_class_platform
     <set>
-      <if test="time != null">
-        time = #{time,jdbcType=VARCHAR},
+      <if test="cName != null">
+        c_name = #{cName,jdbcType=VARCHAR},
       </if>
-      <if test="tId != null">
-        t_id = #{tId,jdbcType=INTEGER},
+      <if test="platform != null">
+        platform = #{platform,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lixing.siitep.entity.TbDuty">
-    update tb_duty
-    set time = #{time,jdbcType=VARCHAR},
-      t_id = #{tId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.lixing.siitep.entity.TbClassPlatform">
+    update tb_class_platform
+    set c_name = #{cName,jdbcType=VARCHAR},
+      platform = #{platform,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectDutyTeacherByTime" parameterType="com.lixing.siitep.entity.TbDuty" resultType="java.util.HashMap">
-  SELECT t.t_name,t.t_tel
-   from tb_teacher t,tb_duty d
-   where t.id=d.t_id and d.time=CURDATE()
-  </select>
 
-  <select id="selectTeacher" parameterType="com.lixing.siitep.entity.TbDuty" resultType="java.util.HashMap">
-   SELECT t.t_name,t.t_tel,t.department,t.dutydate
-   from tb_teacher t,tb_duty d
-   where t.id=d.t_id
-  </select>
+  <select id="platformCount" resultType="java.util.Map" parameterType="com.lixing.siitep.entity.TbClassPlatformExample">
+     select
+    count(IF ( platform ='企业微信', TRUE, NULL )) wechat,
+    count(IF ( platform ='腾讯会议', TRUE, NULL ))txmeeting,
+    count(IF ( platform ='腾讯课堂',TRUE,NULL))txclass,
+    count(IF ( platform='钉钉',TRUE,NULL))dingding,
+    count(IF ( platform='学习通',TRUE,NULL))study
+
+    from tb_class_platform
+</select>
 </mapper>

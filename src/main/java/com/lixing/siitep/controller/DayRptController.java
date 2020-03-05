@@ -83,14 +83,15 @@ public class DayRptController {
     }
 
     @GetMapping("getStuInSuZhou")
-    @ApiOperation("每天在苏人数")
+    @ApiOperation("在苏人数，江苏人数")
     @ApiImplicitParams(
             {
                     @ApiImplicitParam(value = "城市（苏州）",name = "city",required = false,dataType = "String"),
                     @ApiImplicitParam(value = "省份（江苏）",name = "province",required = false,dataType = "String")
             }
     )
-    private List<TbDayrpt> getStuInSuZhou(@RequestParam(name = "city",required = false)String  city,@RequestParam(name = "province",required = false)String province)
+    private List<TbDayrpt> getStuInSuZhou(@RequestParam(name = "city",required = false)String  city,
+                                          @RequestParam(name = "province",required = false)String province)
     {
         return dayRptService.StuInSuZhou(city,province);
     }

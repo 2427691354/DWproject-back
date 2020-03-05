@@ -27,5 +27,8 @@ public interface TbDutyMapper {
     int updateByPrimaryKeySelective(TbDuty record);
 
     int updateByPrimaryKey(TbDuty record);
-    String selectDutyTeacherByTime();
+    //返回当日值班教师姓名  号码
+    List<TbDuty> selectDutyTeacherByTime();
+    //轮播所有教师信息
+    List<TbDuty> selectTeacher();
 }

@@ -36,7 +36,4 @@ public interface DayRptService {
     List<TbDayrpt> StuInSuZhou(String city,String province);
 
 
-
-
-
 }
