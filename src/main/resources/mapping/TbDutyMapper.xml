@@ -188,5 +188,6 @@
    SELECT t.t_name,t.t_tel,t.department,t.dutydate
    from tb_teacher t,tb_duty d
    where t.id=d.t_id
+   ORDER BY dutydate
   </select>
 </mapper>
