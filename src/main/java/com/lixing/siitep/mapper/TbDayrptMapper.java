@@ -119,4 +119,5 @@ public interface TbDayrptMapper {
 
     //隔离人数
     List<TbDayrpt> StuIsolated(List<String> list);
+
 }

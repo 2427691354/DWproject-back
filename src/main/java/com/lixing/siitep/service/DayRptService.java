@@ -37,6 +37,8 @@ public interface DayRptService {
 
     //发烧人数趋势
     List<TbDayrpt> StuFeverTrend();
+
+
     //隔离人数
     List<TbDayrpt> StuIsolated();
 }

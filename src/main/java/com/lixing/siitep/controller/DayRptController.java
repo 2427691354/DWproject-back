@@ -103,6 +103,7 @@ public class DayRptController {
         return dayRptService.StuFeverTrend();
     }
 
+
     @GetMapping("getStuIsolated")
     @ApiOperation("隔离人数趋势")
     private List<TbDayrpt> stuIsolated(){
