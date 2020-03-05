@@ -125,4 +125,11 @@ public class DayRptServiceImpl implements DayRptService
         return tbDayrpts;
     }
 
+    @Override
+    public List<TbDayrpt> StuFeverTrend() {
+        List<String> list = tblRecordMapper.OneWeekTable();
+        List<TbDayrpt> tbDayrpts = tbDayrptMapper.StuFeverTrend(list);
+        return tbDayrpts;
+    }
+
 }

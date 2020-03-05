@@ -35,5 +35,7 @@ public interface DayRptService {
     //每天在苏人数
     List<TbDayrpt> StuInSuZhou(String city,String province);
 
+    //发烧人数趋势
+    List<TbDayrpt> StuFeverTrend();
 
 }

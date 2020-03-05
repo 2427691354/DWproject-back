@@ -114,4 +114,6 @@ public interface TbDayrptMapper {
     //在苏人数
     List<TbDayrpt> StuInSuZhou(@Param("list")List<String> list,@Param("city")String city,@Param("province")String province);
 
+    //发烧趋势
+    List<TbDayrpt> StuFeverTrend(List<String> list);
 }

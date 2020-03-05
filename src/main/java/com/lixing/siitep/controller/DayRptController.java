@@ -97,4 +97,11 @@ public class DayRptController {
     }
 
 
+    @GetMapping("getFeverTrend")
+    @ApiOperation("发烧人数趋势")
+    private List<TbDayrpt> stuFeverTrend(){
+        return dayRptService.StuFeverTrend();
+    }
+
+
 }
