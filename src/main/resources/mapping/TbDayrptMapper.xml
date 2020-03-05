@@ -425,7 +425,8 @@
     select count(id) sum,
     count(IF ( is_isolated !=0, TRUE, NULL )) sumisolated,
     count(IF ( temperature >= 37.3, TRUE, NULL ))sumhever,
-    count(IF (location_city = '苏州',TRUE,NULL))stuinSuzhou
+    count(IF (location_city = '苏州',TRUE,NULL))stuinSuzhou,
+    count(IF (location_province = '江苏',TRUE,NULL)) stuinJiang
     from ${tableName}
 </select>
   <select id="StuInProvince" resultType="java.util.HashMap" parameterType="com.lixing.siitep.entity.TbDayrpt">
