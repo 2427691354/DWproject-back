@@ -31,9 +31,9 @@ public class StudentController {
     @GetMapping("/sum")
     @ApiOperation("宏观统计 总人数")
     public Iterator<BasicDBObject> sum(){
-            Aggregation aggregation = Aggregation.newAggregation(
-                    Aggregation.group("upTime").count().as("总人数")
-            );
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.group("upTime").count().as("总人数")
+        );
         AggregationResults<BasicDBObject> results = mongoTemplate.aggregate(aggregation,"rpt",BasicDBObject.class);
         Iterator<BasicDBObject> iterator=results.iterator();
         return iterator;
@@ -116,17 +116,17 @@ public class StudentController {
     @GetMapping("/getStuInProvince")
     @ApiOperation("统计学生各省物理分布人数")
     private Map<String,Object> StuInProvince(){
-    Map<String,Object> date=mongoService.getDateList(1).get(0);
-    System.err.println(date);
-    Aggregation aggregation = Aggregation.newAggregation(
-            Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
-            Aggregation.group("locationProvince").count().as("总人数")
-    );
-    return mongoTemplate.aggregate(aggregation,"rpt",HashMap.class).getRawResults();
+        Map<String,Object> date=mongoService.getDateList(1).get(0);
+        System.err.println(date);
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.group("locationProvince").count().as("总人数")
+        );
+        return mongoTemplate.aggregate(aggregation,"rpt",HashMap.class).getRawResults();
 
 
 
-}
+    }
 
 
 
