@@ -9,5 +9,9 @@ import java.util.Map;
  * @date 2020/03/23
  **/
 public interface MongoService {
+
     List<Map<String,Object>>  getDateList(Integer length);
+
+
+
 }

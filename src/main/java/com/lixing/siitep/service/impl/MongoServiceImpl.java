@@ -38,12 +38,16 @@ public class MongoServiceImpl implements MongoService {
             operations.add(Aggregation.limit(length));
         }
 
-        operations.add(Aggregation.sort(Sort.Direction.DESC,"_id"));
+            operations.add(Aggregation.sort(Sort.Direction.DESC, "_id"));
 
-        Aggregation aggregation = Aggregation.newAggregation(operations);
-        dateList = (List<Map<String,Object>>)mongoTemplate.aggregate(aggregation, "rpt", HashMap.class).getRawResults().get("results");
-        System.err.println(dateList);
+            Aggregation aggregation = Aggregation.newAggregation(operations);
+            dateList = (List<Map<String, Object>>) mongoTemplate.aggregate(aggregation, "rpt", HashMap.class).getRawResults().get("results");
+
         return dateList;
 
     }
+
+
+
+
 }
