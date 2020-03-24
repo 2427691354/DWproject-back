@@ -3,16 +3,25 @@ package com.lixing.siitep.controller;
 
 import com.lixing.siitep.entity.TbDayrpt;
 import com.lixing.siitep.entity.TblRecord;
+import com.lixing.siitep.entity.Tbrpt;
 import com.lixing.siitep.service.DayRptService;
+import com.mongodb.BasicDBObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.management.Query;
 import java.util.*;
 
 
@@ -28,6 +37,9 @@ public class DayRptController {
     @Autowired
     private DayRptService dayRptService;
 
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
     @GetMapping("sum")
     @ApiOperation("宏观统计 总人数、隔离人数、发烧人数")
     @ApiImplicitParam(value = "日期",name = "day",required = false,dataType = "String")
@@ -36,6 +48,9 @@ public class DayRptController {
         return dayRptService.sum(day);
     }
 
+
+
+
     @GetMapping("getStuInProvince")
     @ApiOperation("统计学生各省物理分布人数")
     @ApiImplicitParam(value = "日期",name = "day",required = false,dataType = "String")
@@ -43,6 +58,7 @@ public class DayRptController {
             List<TbDayrpt> StuCount = dayRptService.StuInProvince(day);
             return StuCount;
     }
+
 
     @GetMapping("getStuHotInProvince")
     @ApiOperation("统计学生各省发烧分布人数")
@@ -68,6 +84,9 @@ public class DayRptController {
         return FocusStu;
     }
 
+
+
+
     @GetMapping("getTemperatureGradeRatio")
     @ApiOperation("体温等级比例")
     @ApiImplicitParam(value = "日期",name = "day",required = false,dataType = "String")
@@ -81,6 +100,8 @@ public class DayRptController {
     private String NewTime(){
         return dayRptService.NewTime();
     }
+
+
 
     @GetMapping("getStuInSuZhou")
     @ApiOperation("在苏人数，江苏人数")
@@ -97,6 +118,7 @@ public class DayRptController {
     }
 
 
+
     @GetMapping("getFeverTrend")
     @ApiOperation("发烧人数趋势")
     private List<TbDayrpt> stuFeverTrend(){
@@ -109,5 +131,7 @@ public class DayRptController {
     private List<TbDayrpt> stuIsolated(){
         return dayRptService.StuIsolated();
     }
+
+
 
 }

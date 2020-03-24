@@ -42,7 +42,8 @@ public class MongoServiceImpl implements MongoService {
 
         Aggregation aggregation = Aggregation.newAggregation(operations);
         dateList = (List<Map<String,Object>>)mongoTemplate.aggregate(aggregation, "rpt", HashMap.class).getRawResults().get("results");
-
+        System.err.println(dateList);
         return dateList;
+
     }
 }
