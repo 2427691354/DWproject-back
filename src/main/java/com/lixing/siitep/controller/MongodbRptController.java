@@ -21,7 +21,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/students")
-public class StudentController {
+public class MongodbRptController {
     @Autowired
     private MongoTemplate mongoTemplate;
 
@@ -52,8 +52,6 @@ public class StudentController {
             Query query = new Query();
             query.addCriteria(Criteria.where("upTime").is(date.get("_id")));
             query.addCriteria(Criteria.where("locationCity").is("苏州 "));
-
-            //改变_id的
             map.put("upTime",date.get("_id"));
             map.put("count",mongoTemplate.count(query,"rpt"));
             result.add(map);
@@ -61,7 +59,23 @@ public class StudentController {
 
         return result;
     }
+    @GetMapping("/getInJiangSu")
+    @ApiOperation("在江苏人数")
+    public List<Map<String,Object>> getInJiangSu(){
+        List<Map<String,Object>> result = new ArrayList<>();
+        List<Map<String,Object>> dateList = mongoService.getDateList(null);
+        for(Map<String,Object> date:dateList){
+            Map<String,Object> map = new HashMap<>();
+            Query query = new Query();
+            query.addCriteria(Criteria.where("upTime").is(date.get("_id")));
+            query.addCriteria(Criteria.where("locationProvince").is("江苏"));
+            map.put("upTime",date.get("_id"));
+            map.put("count",mongoTemplate.count(query,"rpt"));
+            result.add(map);
+        }
 
+        return result;
+    }
 
 
     @GetMapping("/getStuInSuZhou")
@@ -94,8 +108,6 @@ public class StudentController {
     @ApiOperation("不正常人数")
     public List<Map<String,Object>> stuNotNormal(){
         List<Map<String,Object>> result = new ArrayList<>();
-
-        // 输入null查询全部，输入长度，可查询最近几天的数据
         List<Map<String,Object>> dateList = mongoService.getDateList(null);
         List key= Arrays.asList("有发热、咳嗽、呼吸困难等可以症状", "新冠疑似", "新冠确诊", "新冠排除");
         for(Map<String,Object> date:dateList){
@@ -123,12 +135,7 @@ public class StudentController {
                 Aggregation.group("locationProvince").count().as("总人数")
         );
         return mongoTemplate.aggregate(aggregation,"rpt",HashMap.class).getRawResults();
-
-
-
     }
-
-
 
 
     @GetMapping("getCodeColor")
@@ -142,5 +149,70 @@ public class StudentController {
         Iterator<BasicDBObject> iterator=results.iterator();
         return iterator;
     }
+
+
+
+    @GetMapping("getpass")
+    @ApiOperation("统计隔离人数")
+    public List<Map<String,Object>> getpass(){
+        List<Map<String,Object>> result = new ArrayList<>();
+        List<Map<String,Object>> dateList = mongoService.getDateList(null);
+        List key= Arrays.asList("浙江省温州市","湖北省黄冈市","河南省信阳市","安徽省阜阳市","湖北省荆门市");
+        for(Map<String,Object> date:dateList){
+            Map<String,Object> map = new HashMap<>();
+            Query query = new Query();
+            query.addCriteria(Criteria.where("upTime").is(date.get("_id")));
+            query.addCriteria(Criteria.where("localPass").in(key));
+            //显示分组字段，不显示_id
+            map.put("upTime",date.get("_id"));
+            map.put("count",mongoTemplate.count(query,"rpt"));
+            result.add(map);
+        }
+
+        return result;
+    }
+
+    @GetMapping("/getNewDayStuPassInProvince")
+    @ApiOperation("统计最新隔离学生各省物理分布人数")
+    private Map<String,Object> getNewDayStuPassInProvince(){
+        Map<String,Object> date=mongoService.getDateList(1).get(0);
+        System.err.println(date);
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.group("localPass").count().as("隔离人数"),
+                Aggregation.limit(5)
+        );
+        return mongoTemplate.aggregate(aggregation,"rpt",HashMap.class).getRawResults();
+    }
+
+    @GetMapping("/getStuPassInProvince")
+    @ApiOperation("统计隔离学生各省物理分布人数")
+    public List<Map<String,Object>> getStuPassInProvince(){
+        List<Map<String,Object>> result = new ArrayList<>();
+        List<Map<String,Object>> dateList = mongoService.getDateList(null);
+        for(Map<String,Object> date:dateList){
+            System.err.println(date);
+            Aggregation aggregation = Aggregation.newAggregation(
+                    Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                    Aggregation.group("localPass").count().as("隔离人数"),
+                    Aggregation.limit(5)
+            );
+            result.add(mongoTemplate.aggregate(aggregation,"rpt",HashMap.class).getRawResults());
+        }
+        return result;
+    }
+
+    @GetMapping("getCodeRegisterCount")
+    @ApiOperation("统计红黄绿码注册人数占比")
+    private Map<String,Object> getCodeRegisterCount(){
+        Map<String,Object> date=mongoService.getDateList(1).get(0);
+        System.err.println(date);
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.group("codeColor").count().as("持码人数")
+        );
+        return mongoTemplate.aggregate(aggregation,"rpt",HashMap.class).getRawResults();
+    }
+
 
 }

@@ -49,8 +49,6 @@ public class DayRptController {
     }
 
 
-
-
     @GetMapping("getStuInProvince")
     @ApiOperation("统计学生各省物理分布人数")
     @ApiImplicitParam(value = "日期",name = "day",required = false,dataType = "String")
@@ -58,8 +56,6 @@ public class DayRptController {
             List<TbDayrpt> StuCount = dayRptService.StuInProvince(day);
             return StuCount;
     }
-
-
     @GetMapping("getStuHotInProvince")
     @ApiOperation("统计学生各省发烧分布人数")
     @ApiImplicitParam(value = "日期",name = "day",required = false,dataType = "String")
@@ -67,7 +63,6 @@ public class DayRptController {
         List<TbDayrpt> StuHotCount=dayRptService.StuHotInProvince(day);
         return StuHotCount;
     }
-
     @GetMapping("getStuIsolatedInProvince")
     @ApiOperation("统计学生各省隔离分布人数")
     @ApiImplicitParam(value = "日期",name = "day",required = false,dataType = "String")
@@ -83,10 +78,6 @@ public class DayRptController {
         List<TbDayrpt> FocusStu=dayRptService.FocusStu(day);
         return FocusStu;
     }
-
-
-
-
     @GetMapping("getTemperatureGradeRatio")
     @ApiOperation("体温等级比例")
     @ApiImplicitParam(value = "日期",name = "day",required = false,dataType = "String")
@@ -101,8 +92,6 @@ public class DayRptController {
         return dayRptService.NewTime();
     }
 
-
-
     @GetMapping("getStuInSuZhou")
     @ApiOperation("在苏人数，江苏人数")
     @ApiImplicitParams(
@@ -116,8 +105,6 @@ public class DayRptController {
     {
         return dayRptService.StuInSuZhou(city,province);
     }
-
-
 
     @GetMapping("getFeverTrend")
     @ApiOperation("发烧人数趋势")
