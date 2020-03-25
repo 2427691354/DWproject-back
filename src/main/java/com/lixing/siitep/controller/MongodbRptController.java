@@ -190,7 +190,14 @@ public class MongodbRptController {
         Map<String,Object> map = new HashMap<>();
         Query query = new Query();
         query.addCriteria(Criteria.where("upTime").is(date.get("_id")));
-        query.addCriteria(Criteria.where("physicalCondition").is("居家隔离观察").and("医院隔离观察").and("医院住院治疗"));
+
+//        query.addCriteria(Criteria.where("physicalCondition").is("居家隔离观察")
+//                .orOperator(Criteria.where("physicalCondition").is("医院隔离观察")
+//                        .orOperator(Criteria.where("physicalCondition").is("医院住院治疗"))));
+
+       // query.addCriteria(Criteria.where("physicalCondition").in(Arrays.asList("居家隔离观察","医院隔离观察","医院住院治疗")));
+
+        query.addCriteria(Criteria.where("physicalCondition").in("居家隔离观察","医院隔离观察","医院住院治疗"));
         map.put("PassCount",mongoTemplate.count(query,"rpt"));
         result.add(map);
         return result;
