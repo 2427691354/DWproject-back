@@ -75,6 +75,14 @@ public class MongodbRptController {
         );
         Map<String,Object> sz = ((List<Map<String,Object>>)mongoTemplate.aggregate(InJiangSu, "rpt", HashMap.class).getRawResults().get("results")).get(0);
 
+        //当天隔离人数
+        Aggregation TodayPassCount = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.match(Criteria.where("localPass").ne("无")),
+                Aggregation.group("upTime").count().as("count")
+        );
+        Map<String,Object> tpc = ((List<Map<String,Object>>)mongoTemplate.aggregate(TodayPassCount, "rpt", HashMap.class).getRawResults().get("results")).get(0);
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         result.put("sumAll",s.get("count"));
         result.put("upTime",sdf.format(new Date(s.get("_id").toString())));
@@ -82,6 +90,7 @@ public class MongodbRptController {
         result.put("sumGreen",g.get("count"));
         result.put("stuinJiang",js.get("count"));
         result.put("stuinSuzhou",sz.get("count"));
+        result.put("TodayPassCount",tpc.get("count"));
 
         return result;
     }
@@ -122,7 +131,7 @@ public class MongodbRptController {
                 result.add(map);
             }
         }
-        return result;
+        return  result;
     }
 
     @GetMapping("/getStuInProvince")
@@ -157,6 +166,32 @@ public class MongodbRptController {
         Map<String,Object> date=mongoService.getDateList(1).get(0);
         return sdf.format(new Date(date.get("_id").toString()));
     }
+
+
+    @GetMapping("getpassTrend")
+    @ApiOperation("统计隔离人数趋势")
+    public List<Map<String,Object>> getpassTrend(){
+        List<Map<String,Object>> result = new ArrayList<>();
+        List<Map<String,Object>> dateList = mongoService.getDateList(null);
+        List key= Arrays.asList("浙江省温州市","湖北省黄冈市","河南省信阳市","安徽省阜阳市","湖北省荆门市");
+        for(Map<String,Object> date:dateList){
+            Map<String,Object> map = new HashMap<>();
+            Query query = new Query();
+            query.addCriteria(Criteria.where("upTime").is(date.get("_id")));
+            query.addCriteria(Criteria.where("localPass").in(key));
+            query.limit(6);
+            map.put("upTime",date.get("_id"));
+            map.put("count",mongoTemplate.count(query,"rpt"));
+            result.add(map);
+        }
+
+        return result;
+    }
+
+
+
+
+
 
 
 }
