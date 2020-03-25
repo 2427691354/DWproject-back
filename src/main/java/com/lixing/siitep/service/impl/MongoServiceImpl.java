@@ -47,7 +47,24 @@ public class MongoServiceImpl implements MongoService {
 
     }
 
+    @Override
+    public List<Map<String, Object>> getCityOrProvince(String city, String province) {
 
+        List<Map<String,Object>> dateList = new ArrayList<>();
+
+        List<AggregationOperation> operations = new ArrayList<>();
+        GroupOperation groupOperation = Aggregation.group("upTime").count().as("count");
+        operations.add(groupOperation);
+
+        operations.add(Aggregation.limit(7));
+        operations.add(Aggregation.sort(Sort.Direction.DESC, "_id"));
+
+        Aggregation aggregation = Aggregation.newAggregation(operations);
+        dateList = (List<Map<String, Object>>) mongoTemplate.aggregate(aggregation, "rpt", HashMap.class).getRawResults().get("results");
+
+        return dateList;
+
+    }
 
 
 }

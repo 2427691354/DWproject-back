@@ -11,6 +11,7 @@ import java.util.Map;
 public interface MongoService {
 
     List<Map<String,Object>>  getDateList(Integer length);
+    List<Map<String,Object>> getCityOrProvince(String city,String province);
 
 
 
