@@ -104,7 +104,7 @@ public class MongodbRptController {
                 Map<String, Object> map = new HashMap<>();
                 Query query = new Query();
                 query.addCriteria(Criteria.where("upTime").is(date.get("_id")));
-                query.addCriteria(Criteria.where("locationCity").is(city));
+                query.addCriteria(Criteria.where("locationCity").is(city+" "));
                 map.put("upTime", date.get("_id"));
                 map.put("CityCount", mongoTemplate.count(query, "rpt"));
                 result.add(map);
