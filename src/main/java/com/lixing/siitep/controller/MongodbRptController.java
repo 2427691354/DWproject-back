@@ -76,6 +76,16 @@ public class MongodbRptController {
         Map<String,Object> sz = ((List<Map<String,Object>>)mongoTemplate.aggregate(InJiangSu, "rpt", HashMap.class).getRawResults().get("results")).get(0);
 
 
+        //当日隔离人数
+        List key= Arrays.asList("居家隔离观察","医院隔离观察","医院住院治疗");
+        Aggregation TodayPassCount = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.match(Criteria.where("physicalCondition").in(key)),
+                Aggregation.group("upTime").count().as("count")
+        );
+        Map<String,Object> tpc = ((List<Map<String,Object>>)mongoTemplate.aggregate(TodayPassCount, "rpt", HashMap.class).getRawResults().get("results")).get(0);
+
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         result.put("sumAll",s.get("count"));
         result.put("upTime",sdf.format(new Date(s.get("_id").toString())));
@@ -83,10 +93,12 @@ public class MongodbRptController {
         result.put("sumGreen",g.get("count"));
         result.put("stuinJiang",js.get("count"));
         result.put("stuinSuzhou",sz.get("count"));
-
+        result.put("TodayPassCount",tpc.get("count"));
 
         return result;
     }
+
+
 
     @GetMapping("/getCityOrProvince")
     @ApiOperation("在某省份/城市人数近七天趋势")
@@ -181,20 +193,5 @@ public class MongodbRptController {
         return result;
     }
 
-    @GetMapping("getTodayPassCount")
-    @ApiOperation("当天隔离人数")
-    public List<Map<String,Object>> getTodayPassCount(){
-        List<Map<String,Object>> result = new ArrayList<>();
-        Map<String,Object> date=mongoService.getDateList(1).get(0);
-        System.err.println(date);
-        Map<String,Object> map = new HashMap<>();
-        Query query = new Query();
-        query.addCriteria(Criteria.where("upTime").is(date.get("_id")));
-        List key= Arrays.asList("居家隔离观察","医院隔离观察","医院住院治疗");
-        query.addCriteria(Criteria.where("physicalCondition").in(key));
-        map.put("PassCount",mongoTemplate.count(query,"rpt"));
-        result.add(map);
-        return result;
-    }
 
 }
