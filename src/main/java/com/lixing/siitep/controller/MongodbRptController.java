@@ -1,22 +1,21 @@
 package com.lixing.siitep.controller;
 
-import com.lixing.siitep.entity.Tbrpt;
+import com.alibaba.fastjson.JSONObject;
+import com.lixing.siitep.entity.Rrr;
 import com.lixing.siitep.service.MongoService;
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
-import org.springframework.data.mongodb.core.mapreduce.GroupBy;
-import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -30,13 +29,58 @@ public class MongodbRptController {
 
     @GetMapping("/sum")
     @ApiOperation("宏观统计 总人数")
-    public Iterator<BasicDBObject> sum(){
-        Aggregation aggregation = Aggregation.newAggregation(
-                Aggregation.group("upTime").count().as("总人数")
+    public Object sum() throws Exception {
+        Map<String,Object> result = new HashMap<>();
+        Map<String,Object> date = mongoService.getDateList(1).get(0);
+
+        // 总人数
+        Aggregation sum = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.group("upTime").count().as("count")
         );
-        AggregationResults<BasicDBObject> results = mongoTemplate.aggregate(aggregation,"rpt",BasicDBObject.class);
-        Iterator<BasicDBObject> iterator=results.iterator();
-        return iterator;
+        Map<String,Object> s = ((List<Map<String,Object>>)mongoTemplate.aggregate(sum, "rpt", Rrr.class).getRawResults().get("results")).get(0);
+
+        // 上报人数
+        Aggregation sumsb = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("isReport").is(0)),
+                Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.group("upTime").count().as("count")
+        );
+        Map<String,Object> sb = ((List<Map<String,Object>>)mongoTemplate.aggregate(sumsb, "rpt", HashMap.class).getRawResults().get("results")).get(0);
+
+        // 绿码人数
+        Aggregation green = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.group("upTime").count().as("count")
+        );
+        Map<String,Object> g = ((List<Map<String,Object>>)mongoTemplate.aggregate(green, "rpt", HashMap.class).getRawResults().get("results")).get(0);
+
+
+        // 在苏州人数
+        Aggregation InSu = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.match(Criteria.where("locationCity").is("苏州 ")),
+                Aggregation.group("upTime").count().as("count")
+        );
+        Map<String,Object> js = ((List<Map<String,Object>>)mongoTemplate.aggregate(InSu, "rpt", HashMap.class).getRawResults().get("results")).get(0);
+
+        // 在江苏 人数
+        Aggregation InJiangSu = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.match(Criteria.where("locationProvince").is("江苏")),
+                Aggregation.group("upTime").count().as("count")
+        );
+        Map<String,Object> sz = ((List<Map<String,Object>>)mongoTemplate.aggregate(InJiangSu, "rpt", HashMap.class).getRawResults().get("results")).get(0);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        result.put("sumAll",s.get("count"));
+        result.put("upTime",sdf.format(new Date(s.get("_id").toString())));
+        result.put("sumSB",sb.get("count"));
+        result.put("sumGreen",g.get("count"));
+        result.put("stuinJiang",js.get("count"));
+        result.put("stuinSuzhou",sz.get("count"));
+
+        return result;
     }
 
     // 参考
@@ -213,6 +257,9 @@ public class MongodbRptController {
         );
         return mongoTemplate.aggregate(aggregation,"rpt",HashMap.class).getRawResults();
     }
+
+
+
 
 
 }
