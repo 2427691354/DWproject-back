@@ -173,7 +173,6 @@ public class MongodbRptController {
     @ApiOperation("统计学生各省物理分布人数")
     private Map<String,Object> StuInProvince(){
         Map<String,Object> date=mongoService.getDateList(1).get(0);
-        System.err.println(date);
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
                 Aggregation.group("locationProvince").count().as("总人数")
@@ -256,6 +255,14 @@ public class MongodbRptController {
                 Aggregation.group("codeColor").count().as("持码人数")
         );
         return mongoTemplate.aggregate(aggregation,"rpt",HashMap.class).getRawResults();
+    }
+
+    @GetMapping("getNewTime")
+    @ApiOperation("最后更新时间")
+    private String NewTime(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Map<String,Object> date=mongoService.getDateList(1).get(0);
+        return sdf.format(new Date(date.get("_id").toString()));
     }
 
 
