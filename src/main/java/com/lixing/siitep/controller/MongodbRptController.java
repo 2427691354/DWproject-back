@@ -138,7 +138,7 @@ public class MongodbRptController {
 
 
 
-    @GetMapping("getCodeRegisterCount")
+    @GetMapping("/getCodeRegisterCount")
     @ApiOperation("统计红黄绿码注册人数占比")
     private Map<String,Object> getCodeRegisterCount(){
         Map<String,Object> date=mongoService.getDateList(1).get(0);
