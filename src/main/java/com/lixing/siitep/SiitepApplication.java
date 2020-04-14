@@ -14,5 +14,4 @@ public class SiitepApplication {
     public static void main(String[] args) {
         SpringApplication.run(SiitepApplication.class, args);
     }
-
 }

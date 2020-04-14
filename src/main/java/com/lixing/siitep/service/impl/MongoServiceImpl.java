@@ -38,15 +38,15 @@ public class MongoServiceImpl implements MongoService {
         GroupOperation groupOperation = Aggregation.group("upTime").count().as("count");
         operations.add(groupOperation);
 
+        operations.add(Aggregation.sort(Sort.Direction.DESC, "_id"));
+
         if(length!=null){
             operations.add(Aggregation.limit(length));
         }
 
-            operations.add(Aggregation.sort(Sort.Direction.DESC, "_id"));
-
             Aggregation aggregation = Aggregation.newAggregation(operations);
             dateList = (List<Map<String, Object>>) mongoTemplate.aggregate(aggregation, "rpt", HashMap.class).getRawResults().get("results");
-
+        System.err.println(dateList.toArray());
         return dateList;
 
     }
@@ -60,8 +60,10 @@ public class MongoServiceImpl implements MongoService {
         GroupOperation groupOperation = Aggregation.group("upTime").count().as("count");
         operations.add(groupOperation);
 
-        operations.add(Aggregation.limit(7));
+
         operations.add(Aggregation.sort(Sort.Direction.DESC, "_id"));
+
+        operations.add(Aggregation.limit(7));
 
         Aggregation aggregation = Aggregation.newAggregation(operations);
         dateList = (List<Map<String, Object>>) mongoTemplate.aggregate(aggregation, "rpt", HashMap.class).getRawResults().get("results");

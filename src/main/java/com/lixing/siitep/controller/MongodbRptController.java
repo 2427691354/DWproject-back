@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -37,11 +38,13 @@ public class MongodbRptController {
         Map<String,Object> result = new HashMap<>();
         Map<String,Object> date = mongoService.getDateList(1).get(0);
 
+
         // 总人数
         Aggregation sum = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
                 Aggregation.group("upTime").count().as("count")
         );
+
         Map<String,Object> s = ((List<Map<String,Object>>)mongoTemplate.aggregate(sum, "rpt", Rrr.class).getRawResults().get("results")).get(0);
 
         // 上报人数
@@ -55,6 +58,7 @@ public class MongodbRptController {
         // 绿码人数
         Aggregation green = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.match(Criteria.where("codeColor").is("绿码")),
                 Aggregation.group("upTime").count().as("count")
         );
         Map<String,Object> g = ((List<Map<String,Object>>)mongoTemplate.aggregate(green, "rpt", HashMap.class).getRawResults().get("results")).get(0);
@@ -75,16 +79,41 @@ public class MongodbRptController {
         );
         Map<String,Object> sz = ((List<Map<String,Object>>)mongoTemplate.aggregate(InJiangSu, "rpt", HashMap.class).getRawResults().get("results")).get(0);
 
+
+        //当日隔离人数
+        List key= Arrays.asList("居家隔离观察","医院隔离观察","医院住院治疗");
+        Aggregation TodayPassCount = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("upTime").is(date.get("_id"))),
+                Aggregation.match(Criteria.where("physicalCondition").in(key)),
+                Aggregation.group("upTime").count().as("count")
+        );
+        Map<String,Object> tpc = new HashMap<>();
+        if(((List<Map<String,Object>>)mongoTemplate.aggregate(TodayPassCount, "rpt", HashMap.class).getRawResults().get("results")).size()>0){
+            tpc = ((List<Map<String,Object>>)mongoTemplate.aggregate(TodayPassCount, "rpt", HashMap.class).getRawResults().get("results")).get(0);
+        }
+        else{
+            tpc.put("count",0);
+        }
+
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String[] dateStr=date.get("_id").toString().split(" ");
+        String strGMT = dateStr[0]+" "+dateStr[1]+" "+dateStr[2]+" "+dateStr[5]+" "+dateStr[3]+" GMT+0800";
+
         result.put("sumAll",s.get("count"));
-        result.put("upTime",sdf.format(new Date(s.get("_id").toString())));
+        result.put("upTime",sdf.format(new Date(Date.parse(strGMT))));
         result.put("sumSB",sb.get("count"));
         result.put("sumGreen",g.get("count"));
-        result.put("stuinJiang",js.get("count"));
-        result.put("stuinSuzhou",sz.get("count"));
+//        result.put("stuinJiang",js.get("count"));
+//        result.put("stuinSuzhou",sz.get("count"));
+        result.put("stuinSuzhou",js.get("count"));
+        result.put("stuinJiang",sz.get("count"));
+        result.put("TodayPassCount",tpc.get("count"));
 
         return result;
     }
+
+
 
     @GetMapping("/getCityOrProvince")
     @ApiOperation("在某省份/城市人数近七天趋势")
@@ -122,7 +151,7 @@ public class MongodbRptController {
                 result.add(map);
             }
         }
-        return result;
+        return  result;
     }
 
     @GetMapping("/getStuInProvince")
@@ -152,10 +181,34 @@ public class MongodbRptController {
 
     @GetMapping("getNewTime")
     @ApiOperation("最后更新时间")
-    private String NewTime(){
+    private String NewTime() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Map<String,Object> date=mongoService.getDateList(1).get(0);
-        return sdf.format(new Date(date.get("_id").toString()));
+        String[] dateStr=date.get("_id").toString().split(" ");
+        String strGMT = dateStr[0]+" "+dateStr[1]+" "+dateStr[2]+" "+dateStr[5]+" "+dateStr[3]+" GMT+0800";
+        return sdf.format(new Date(Date.parse(strGMT)));
+    }
+
+
+    @GetMapping("getpassTrend")
+    @ApiOperation("统计隔离人数趋势")
+    public List<Map<String,Object>> getpassTrend(){
+        List<Map<String,Object>> result = new ArrayList<>();
+        List<Map<String,Object>> dateList = mongoService.getDateList(null);
+        List key= Arrays.asList("居家隔离观察","医院隔离观察","医院住院治疗");
+        for(Map<String,Object> date:dateList){
+            Map<String,Object> map = new HashMap<>();
+            Query query = new Query();
+            query.addCriteria(Criteria.where("upTime").is(date.get("_id")));
+            query.addCriteria(Criteria.where("physicalCondition").in(key));
+            query.limit(6);
+            map.put("upTime",date.get("_id"));
+            map.put("count",mongoTemplate.count(query,"rpt"));
+            result.add(map);
+        }
+
+
+        return result;
     }
 
 
