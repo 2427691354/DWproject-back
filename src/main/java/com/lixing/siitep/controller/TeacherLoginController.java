@@ -67,6 +67,12 @@ public class TeacherLoginController {
                 Query query = new Query();
                 query.addCriteria(Criteria.where("upTime").is(date.get("_id")));
                 query.addCriteria(Criteria.where("sId").is(sId));
+                query.fields().include("sName");
+                query.fields().include("sId");
+                query.fields().include("locationProvince");
+                query.fields().include("locationCity");
+                query.fields().include("temperature");
+                query.fields().include("upTime");
                 map.put("result", mongoTemplate.find(query, Tbrpt.class, "rpt"));
                 result.add(map);
             }
@@ -80,6 +86,12 @@ public class TeacherLoginController {
             Query query = new Query();
             query.addCriteria(Criteria.where("upTime").gte(startTime).lte(endTime));
             query.addCriteria(Criteria.where("sId").is(sId));
+            query.fields().include("sName");
+            query.fields().include("sId");
+            query.fields().include("locationProvince");
+            query.fields().include("locationCity");
+            query.fields().include("temperature");
+            query.fields().include("upTime");
             map.put("result", mongoTemplate.find(query, Tbrpt.class, "rpt"));
             result.add(map);
 

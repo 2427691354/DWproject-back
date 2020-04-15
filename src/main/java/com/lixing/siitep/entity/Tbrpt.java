@@ -28,5 +28,5 @@ public class Tbrpt {
     private String codeColor;
     private Integer isReport;
     private String physicalCondition;
-
+    private String temperature;
 }
