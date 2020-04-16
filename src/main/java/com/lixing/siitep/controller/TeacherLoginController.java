@@ -99,4 +99,72 @@ public class TeacherLoginController {
         return result;
     }
 
+    @GetMapping("/getStudentTrip_1")
+    public List<Map<String,Object>> getStudentTrip_(@RequestParam(name = "sId",required = false)String  sId,
+                                                   @RequestParam(name = "starttime",required = false)String starttime,
+                                                   @RequestParam(name = "endtime",required = false)String endtime ) throws ParseException {
+        //根据学生ID，没有输入时间，默认从最新时间往前数几天
+        List<Map<String, Object>> result = new ArrayList<>();
+        if (starttime == null && endtime == null) {
+            List<Map<String, Object>> dateList = mongoService.getStudentTrip(sId, null);
+            for (Map<String, Object> date : dateList) {
+                Map<String, Object> map = new HashMap<>();
+                Query query = new Query();
+                query.addCriteria(Criteria.where("upTime").is(date.get("_id")));
+                query.addCriteria(Criteria.where("sId").is(sId));
+                query.fields().include("sName");
+                query.fields().include("sId");
+                query.fields().include("locationProvince");
+                query.fields().include("locationCity");
+                query.fields().include("temperature");
+                query.fields().include("upTime");
+                query.fields().include("cName");
+                query.fields().include("deptName");
+                query.fields().include("codeColor");
+                map.put("result", mongoTemplate.find(query, Tbrpt.class, "rpt"));
+                result.add(map);
+            }
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if (starttime != null && endtime != null) {
+            List<String> list = new ArrayList<String>(); //保存日期的集合
+            Date date_start = sdf.parse(starttime);
+            Date date_end = sdf.parse(endtime);
+            Date date =date_start;
+            Calendar cd = Calendar.getInstance();//用Calendar 进行日期比较判断
+            while (date.getTime() <= date_end.getTime()){
+                list.add(sdf.format(date));
+                cd.setTime(date);
+                cd.add(Calendar.DATE, 1);//增加一天 放入集合
+                date=cd.getTime();
+            }
+        for(String time:list) {
+            System.err.println(time);
+            Map<String, Object> map = new HashMap<>();
+            Query query = new Query();
+            query.addCriteria(Criteria.where("upTime").is(time));
+            query.addCriteria(Criteria.where("sId").is(sId));
+            query.fields().include("sName");
+            query.fields().include("sId");
+            query.fields().include("locationProvince");
+            query.fields().include("locationCity");
+            query.fields().include("temperature");
+            query.fields().include("upTime");
+            query.fields().include("cName");
+            query.fields().include("deptName");
+            query.fields().include("codeColor");
+            System.err.println( mongoTemplate.find(query, Tbrpt.class, "rpt").size());
+            if( mongoTemplate.find(query, Tbrpt.class, "rpt").size()>0){
+                map.put("result", mongoTemplate.find(query, Tbrpt.class, "rpt"));
+            }else {
+                map.put("result","未上报");
+            }
+            result.add(map);
+            }
+        }
+        return result;
+    }
+
+
 }
