@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -166,5 +167,64 @@ public class TeacherLoginController {
         return result;
     }
 
+    @GetMapping("/getStudentTripBySID")
+    @ApiOperation("获取学生行程信息 -- 陈晨")
+    @ApiImplicitParams(
+            {
+                    @ApiImplicitParam(value = "学生学号",name = "sId",required = false,dataType = "String"),
+                    @ApiImplicitParam(value = "开始时间",name = "starttime",required = false,dataType = "String"),
+                    @ApiImplicitParam(value = "结束时间",name = "endtime",required = false,dataType = "String")
+            }
+    )
+    public List<Map<String,Object>> getStudentTripBySID(@RequestParam(name = "sId",required = false)String  sId,
+                                                   @RequestParam(name = "starttime")String starttime,
+                                                   @RequestParam(name = "endtime")String endtime ) throws ParseException {
+        List<Map<String, Object>> result = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for(Date days: findDaysStr(starttime,endtime)){
+            Map<String, Object> map = new HashMap<>();
+            Query query = new Query();
+            query.addCriteria(Criteria.where("sId").is(sId));
+            query.addCriteria(Criteria.where("upTime").is(days));
+            List<Tbrpt> rpt = mongoTemplate.find(query, Tbrpt.class, "rpt");
+            if(rpt.size() >0){
+                map.put("locationProvince",rpt.get(0).getLocationProvince());
+                map.put("locationCity",rpt.get(0).getLocationCity());
+                map.put("codeColor",rpt.get(0).getCodeColor());
+                map.put("temperature",rpt.get(0).getTemperature());
+            }else {
+                map.put("locationProvince","未上报");
+                map.put("locationCity","未上报");
+                map.put("codeColor","未上报");
+                map.put("temperature","未上报");
+            }
+            result.add(map);
+        }
+        return result;
+    }
 
-}
+
+    public static List<Date> findDaysStr(String begintTime, String endTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dBegin = null;
+        Date dEnd = null;
+        try {
+            dBegin = sdf.parse(begintTime);
+            dEnd = sdf.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        List<Date> daysStrList = new ArrayList<Date>();
+        daysStrList.add(dBegin);
+        Calendar calBegin = Calendar.getInstance();
+        calBegin.setTime(dBegin);
+        Calendar calEnd = Calendar.getInstance();
+        calEnd.setTime(dEnd);
+        while (dEnd.after(calBegin.getTime())) {
+            calBegin.add(Calendar.DAY_OF_MONTH, 1);
+            Date dayStr = calBegin.getTime();
+            daysStrList.add(dayStr);
+        }
+        return daysStrList;
+    }
+    }

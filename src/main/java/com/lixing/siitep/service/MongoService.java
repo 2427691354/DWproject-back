@@ -17,4 +17,6 @@ public interface MongoService {
     List<Map<String, Object>> getStudentTrip(String sId, String time);
     List<TbTeacher> teacherLogin(String teacher_id,String password);
 
+    List<Map<String, Object>> getStudentTripBySID(String sId, Date s,Date e);
+
 }

@@ -17,6 +17,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.util.*;
 
 /**
@@ -103,6 +104,25 @@ public class MongoServiceImpl implements MongoService {
             return teachers;
         }
         return null;
+    }
+
+    @Override
+    public List<Map<String, Object>> getStudentTripBySID(String sId, Date s,Date e) {
+
+        List<Map<String,Object>> dateList = new ArrayList<>();
+        Criteria criteria = new Criteria();
+        criteria.andOperator(
+                Criteria.where("sId").is(sId),
+                Criteria.where("upTime").gte(s).lte(e)
+        );
+
+        Query query = new Query();
+        query.addCriteria(criteria);
+        query.with(new Sort(Sort.Direction.ASC,"upTime"));
+
+        System.err.println(mongoTemplate.find(query, Tbrpt.class, "rpt"));
+        return dateList;
+
     }
 
 }
