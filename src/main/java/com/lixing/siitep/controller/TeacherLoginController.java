@@ -176,11 +176,11 @@ public class TeacherLoginController {
                     @ApiImplicitParam(value = "结束时间",name = "endtime",required = false,dataType = "String")
             }
     )
-    public List<Map<String,Object>> getStudentTripBySID(@RequestParam(name = "sId",required = false)String  sId,
+    public Map<String,Object> getStudentTripBySID(@RequestParam(name = "sId",required = false)String  sId,
                                                    @RequestParam(name = "starttime")String starttime,
                                                    @RequestParam(name = "endtime")String endtime ) throws ParseException {
         List<Map<String, Object>> result = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
         for(Date days: findDaysStr(starttime,endtime)){
             Map<String, Object> map = new HashMap<>();
             Query query = new Query();
@@ -188,19 +188,22 @@ public class TeacherLoginController {
             query.addCriteria(Criteria.where("upTime").is(days));
             List<Tbrpt> rpt = mongoTemplate.find(query, Tbrpt.class, "rpt");
             if(rpt.size() >0){
+                map.put("upTime",sdf.format(days));
                 map.put("locationProvince",rpt.get(0).getLocationProvince());
                 map.put("locationCity",rpt.get(0).getLocationCity());
-                map.put("codeColor",rpt.get(0).getCodeColor());
                 map.put("temperature",rpt.get(0).getTemperature());
             }else {
+                map.put("upTime",sdf.format(days));
                 map.put("locationProvince","未上报");
                 map.put("locationCity","未上报");
-                map.put("codeColor","未上报");
                 map.put("temperature","未上报");
             }
             result.add(map);
         }
-        return result;
+        Map<String, Object> map = new HashMap<>();
+        map.put("stuInfo",mongoService.getStudentBySID(sId));
+        map.put("trip",result);
+        return map;
     }
 
 

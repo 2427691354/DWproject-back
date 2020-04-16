@@ -1,6 +1,5 @@
 package com.lixing.siitep.service.impl;
 
-import com.lixing.siitep.entity.TbDayrptExample;
 import com.lixing.siitep.entity.TbTeacher;
 import com.lixing.siitep.entity.Tbrpt;
 import com.lixing.siitep.service.MongoService;
@@ -9,15 +8,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
-import org.springframework.data.mongodb.core.mapreduce.GroupBy;
-import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.util.*;
 
 /**
@@ -123,6 +118,15 @@ public class MongoServiceImpl implements MongoService {
         System.err.println(mongoTemplate.find(query, Tbrpt.class, "rpt"));
         return dateList;
 
+    }
+
+    @Override
+    public List<Tbrpt> getStudentBySID(String sId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("sId").is(sId));
+        query.limit(1);
+        query.with(new Sort(Sort.Direction.DESC,"upTime"));
+        return mongoTemplate.find(query, Tbrpt.class, "rpt");
     }
 
 }

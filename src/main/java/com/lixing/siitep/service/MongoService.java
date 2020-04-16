@@ -1,6 +1,7 @@
 package com.lixing.siitep.service;
 
 import com.lixing.siitep.entity.TbTeacher;
+import com.lixing.siitep.entity.Tbrpt;
 
 import java.util.Date;
 import java.util.List;
@@ -18,5 +19,7 @@ public interface MongoService {
     List<TbTeacher> teacherLogin(String teacher_id,String password);
 
     List<Map<String, Object>> getStudentTripBySID(String sId, Date s,Date e);
+
+    List<Tbrpt> getStudentBySID(String sId);
 
 }
